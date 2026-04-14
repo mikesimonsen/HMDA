@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HMDA Explorer — 2025 Mortgage Data</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <h1>HMDA Explorer</h1>
+  <p>Home Mortgage Disclosure Act data for 2025 — 13.5 million loan applications from 4,774 lenders</p>
+</header>
+
+<nav>
+  <a href="#" data-section="sec-national" class="active">National Overview</a>
+  <a href="#" data-section="sec-geographic">Geographic Analysis</a>
+  <a href="#" data-section="sec-counties">Top Counties</a>
+</nav>
+
+<main>
+
+  <!-- ============ NATIONAL OVERVIEW ============ -->
+  <div id="sec-national" class="section active">
+
+    <div id="nat-summary" class="stats-grid">
+      <div class="stat-card"><div class="label">Loading...</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Application Outcomes</h2>
+        <div class="chart-container"><canvas id="chart-action"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Outcomes Detail</h2>
+        <table id="table-action">
+          <thead>
+            <tr><th>Action</th><th class="num">Count</th><th class="num">%</th><th class="num">Avg Loan</th></tr>
+          </thead>
+          <tbody><tr><td colspan="4" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Loan Type</h2>
+        <div class="chart-container"><canvas id="chart-loan-type"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Loan Purpose</h2>
+        <div class="chart-container"><canvas id="chart-loan-purpose"></canvas></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Interest Rate Distribution</h2>
+        <div class="chart-container"><canvas id="chart-rates"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Top Denial Reasons</h2>
+        <div class="chart-container tall"><canvas id="chart-denials"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ GEOGRAPHIC ============ -->
+  <div id="sec-geographic" class="section">
+
+    <div class="card">
+      <h2>All States</h2>
+      <div class="filter-bar">
+        <input type="text" id="state-filter" placeholder="Filter by state name or code...">
+      </div>
+      <div style="overflow-x: auto;">
+        <table id="table-states">
+          <thead>
+            <tr>
+              <th>State</th><th class="num">Applications</th><th class="num">Originated</th>
+              <th class="num">Volume</th><th class="num">Orig %</th><th class="num">Deny %</th>
+              <th class="num">Avg Loan</th><th class="num">Avg Rate</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="8" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Top States by Originations</h2>
+        <div class="chart-container tall"><canvas id="chart-vol-rank"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Highest Avg Loan Amount</h2>
+        <div class="chart-container tall"><canvas id="chart-expensive-rank"></canvas></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Highest Denial Rates</h2>
+        <div class="chart-container tall"><canvas id="chart-denial-rank"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Highest Avg Interest Rates</h2>
+        <div class="chart-container tall"><canvas id="chart-rate-rank"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COUNTIES ============ -->
+  <div id="sec-counties" class="section">
+    <div class="card">
+      <h2>Top 50 Counties by Origination Volume</h2>
+      <div style="overflow-x: auto;">
+        <table id="table-counties">
+          <thead>
+            <tr>
+              <th>FIPS</th><th>State</th><th class="num">Originated</th>
+              <th class="num">Volume</th><th class="num">Orig %</th>
+              <th class="num">Deny %</th><th class="num">Avg Loan</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer style="text-align:center; padding:2rem; color:#94a3b8; font-size:0.8rem;">
+  Data source: FFIEC HMDA 2025 &mdash; Consumer Financial Protection Bureau
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

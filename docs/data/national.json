@@ -1,0 +1,225 @@
+{
+  "summary": {
+    "total_apps": 13536457,
+    "originated": 6823421,
+    "denied": 2113186,
+    "lender_count": 4774,
+    "avg_loan": 352553.0,
+    "total_volume_b": 2405.6,
+    "avg_rate": 6.781
+  },
+  "by_action": [
+    {
+      "code": "1",
+      "count": 6823421,
+      "pct": 50.4,
+      "avg_loan": 352553.0,
+      "label": "Loan originated"
+    },
+    {
+      "code": "3",
+      "count": 2113186,
+      "pct": 15.6,
+      "avg_loan": 709851.0,
+      "label": "Denied"
+    },
+    {
+      "code": "4",
+      "count": 1710026,
+      "pct": 12.6,
+      "avg_loan": 378194.0,
+      "label": "Withdrawn"
+    },
+    {
+      "code": "6",
+      "count": 1578066,
+      "pct": 11.7,
+      "avg_loan": 367480.0,
+      "label": "Purchased by institution"
+    },
+    {
+      "code": "5",
+      "count": 694970,
+      "pct": 5.1,
+      "avg_loan": 264330.0,
+      "label": "File closed for incompleteness"
+    },
+    {
+      "code": "2",
+      "count": 417891,
+      "pct": 3.1,
+      "avg_loan": 261239.0,
+      "label": "Approved, not accepted"
+    },
+    {
+      "code": "8",
+      "count": 148390,
+      "pct": 1.1,
+      "avg_loan": 425085.0,
+      "label": "Preapproval approved, not accepted"
+    },
+    {
+      "code": "7",
+      "count": 50507,
+      "pct": 0.4,
+      "avg_loan": 312465.0,
+      "label": "Preapproval denied"
+    }
+  ],
+  "by_loan_type": [
+    {
+      "code": "1",
+      "count": 10218405,
+      "pct": 75.5,
+      "avg_loan": 430564.0,
+      "label": "Conventional"
+    },
+    {
+      "code": "2",
+      "count": 2061768,
+      "pct": 15.2,
+      "avg_loan": 306645.0,
+      "label": "FHA"
+    },
+    {
+      "code": "3",
+      "count": 1172517,
+      "pct": 8.7,
+      "avg_loan": 389090.0,
+      "label": "VA"
+    },
+    {
+      "code": "4",
+      "count": 83767,
+      "pct": 0.6,
+      "avg_loan": 189860.0,
+      "label": "USDA/RHS"
+    }
+  ],
+  "by_loan_purpose": [
+    {
+      "code": "1",
+      "count": 6684954,
+      "pct": 49.4,
+      "avg_loan": 386493.0,
+      "label": "Purchase"
+    },
+    {
+      "code": "32",
+      "count": 2218096,
+      "pct": 16.4,
+      "avg_loan": 279051.0,
+      "label": "Cash-out Refinance"
+    },
+    {
+      "code": "31",
+      "count": 1977241,
+      "pct": 14.6,
+      "avg_loan": 461304.0,
+      "label": "Refinance"
+    },
+    {
+      "code": "4",
+      "count": 1409140,
+      "pct": 10.4,
+      "avg_loan": 859462.0,
+      "label": "Other"
+    },
+    {
+      "code": "2",
+      "count": 1217568,
+      "pct": 9.0,
+      "avg_loan": 134593.0,
+      "label": "Home Improvement"
+    },
+    {
+      "code": "5",
+      "count": 29458,
+      "pct": 0.2,
+      "avg_loan": 484972.0,
+      "label": "Not Applicable"
+    }
+  ],
+  "rate_distribution": [
+    {
+      "bucket": "4-5%",
+      "count": 207164
+    },
+    {
+      "bucket": "5-6%",
+      "count": 1191601
+    },
+    {
+      "bucket": "6-7%",
+      "count": 2855927
+    },
+    {
+      "bucket": "7-8%",
+      "count": 1198726
+    },
+    {
+      "bucket": "8-9%",
+      "count": 477381
+    },
+    {
+      "bucket": "9%+",
+      "count": 485154
+    },
+    {
+      "bucket": "Under 4%",
+      "count": 407468
+    }
+  ],
+  "denial_reasons": [
+    {
+      "code": "1",
+      "count": 680095,
+      "label": "Debt-to-income ratio"
+    },
+    {
+      "code": "3",
+      "count": 533320,
+      "label": "Credit history"
+    },
+    {
+      "code": "4",
+      "count": 286650,
+      "label": "Collateral"
+    },
+    {
+      "code": "7",
+      "count": 250059,
+      "label": "Credit application incomplete"
+    },
+    {
+      "code": "9",
+      "count": 176094,
+      "label": "Other"
+    },
+    {
+      "code": "6",
+      "count": 86836,
+      "label": "Unverifiable information"
+    },
+    {
+      "code": "5",
+      "count": 47311,
+      "label": "Insufficient cash"
+    },
+    {
+      "code": "1111",
+      "count": 33101,
+      "label": "1111"
+    },
+    {
+      "code": "2",
+      "count": 19310,
+      "label": "Employment history"
+    },
+    {
+      "code": "8",
+      "count": 410,
+      "label": "Mortgage insurance denied"
+    }
+  ]
+}

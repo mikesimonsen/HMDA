@@ -1,0 +1,11 @@
+# Data files (too large for git)
+hmda.db
+*.zip
+*.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
