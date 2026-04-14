@@ -1849,554 +1849,554 @@
   },
   "top_counties": [
     {
-      "fips": "AZ04013",
+      "fips": "04013",
       "state": "AZ",
-      "county": "04013",
       "apps": 214204,
       "originated": 111766,
       "orig_pct": 52.2,
       "deny_pct": 14.0,
       "avg_loan": 400710.0,
-      "volume_b": 44.8
+      "volume_b": 44.8,
+      "county_name": "Maricopa County"
     },
     {
-      "fips": "CA06037",
+      "fips": "06037",
       "state": "CA",
-      "county": "06037",
       "apps": 223810,
       "originated": 106626,
       "orig_pct": 47.6,
       "deny_pct": 16.4,
       "avg_loan": 740313.0,
-      "volume_b": 78.9
+      "volume_b": 78.9,
+      "county_name": "Los Angeles County"
     },
     {
-      "fips": "IL17031",
+      "fips": "17031",
       "state": "IL",
-      "county": "17031",
       "apps": 172028,
       "originated": 81276,
       "orig_pct": 47.2,
       "deny_pct": 16.1,
       "avg_loan": 380867.0,
-      "volume_b": 31.0
+      "volume_b": 31.0,
+      "county_name": "Cook County"
     },
     {
-      "fips": "TX48201",
+      "fips": "48201",
       "state": "TX",
-      "county": "48201",
       "apps": 137137,
       "originated": 62429,
       "orig_pct": 45.5,
       "deny_pct": 17.7,
       "avg_loan": 374343.0,
-      "volume_b": 23.4
+      "volume_b": 23.4,
+      "county_name": "Harris County"
     },
     {
-      "fips": "CA06073",
+      "fips": "06073",
       "state": "CA",
-      "county": "06073",
       "apps": 104381,
       "originated": 52489,
       "orig_pct": 50.3,
       "deny_pct": 15.3,
       "avg_loan": 643069.0,
-      "volume_b": 33.8
+      "volume_b": 33.8,
+      "county_name": "San Diego County"
     },
     {
-      "fips": "NV32003",
+      "fips": "32003",
       "state": "NV",
-      "county": "32003",
       "apps": 102687,
       "originated": 49804,
       "orig_pct": 48.5,
       "deny_pct": 15.2,
       "avg_loan": 381126.0,
-      "volume_b": 19.0
+      "volume_b": 19.0,
+      "county_name": "Clark County"
     },
     {
-      "fips": "CA06065",
+      "fips": "06065",
       "state": "CA",
-      "county": "06065",
       "apps": 104238,
       "originated": 48842,
       "orig_pct": 46.9,
       "deny_pct": 16.4,
       "avg_loan": 419226.0,
-      "volume_b": 20.5
+      "volume_b": 20.5,
+      "county_name": "Riverside County"
     },
     {
-      "fips": "CA06059",
+      "fips": "06059",
       "state": "CA",
-      "county": "06059",
       "apps": 87275,
       "originated": 45548,
       "orig_pct": 52.2,
       "deny_pct": 14.7,
       "avg_loan": 761855.0,
-      "volume_b": 34.7
+      "volume_b": 34.7,
+      "county_name": "Orange County"
     },
     {
-      "fips": "WA53033",
+      "fips": "53033",
       "state": "WA",
-      "county": "53033",
       "apps": 78252,
       "originated": 43272,
       "orig_pct": 55.3,
       "deny_pct": 12.9,
       "avg_loan": 690899.0,
-      "volume_b": 29.9
+      "volume_b": 29.9,
+      "county_name": "King County"
     },
     {
-      "fips": "TX48029",
+      "fips": "48029",
       "state": "TX",
-      "county": "48029",
       "apps": 80370,
       "originated": 36411,
       "orig_pct": 45.3,
       "deny_pct": 15.3,
       "avg_loan": 293753.0,
-      "volume_b": 10.7
+      "volume_b": 10.7,
+      "county_name": "Bexar County"
     },
     {
-      "fips": "CA06071",
+      "fips": "06071",
       "state": "CA",
-      "county": "06071",
       "apps": 77727,
       "originated": 35727,
       "orig_pct": 46.0,
       "deny_pct": 16.2,
       "avg_loan": 385267.0,
-      "volume_b": 13.8
+      "volume_b": 13.8,
+      "county_name": "San Bernardino County"
     },
     {
-      "fips": "TX48439",
+      "fips": "48439",
       "state": "TX",
-      "county": "48439",
       "apps": 71083,
       "originated": 34398,
       "orig_pct": 48.4,
       "deny_pct": 15.2,
       "avg_loan": 363396.0,
-      "volume_b": 12.5
+      "volume_b": 12.5,
+      "county_name": "Tarrant County"
     },
     {
-      "fips": "FL12086",
+      "fips": "12086",
       "state": "FL",
-      "county": "12086",
       "apps": 82823,
       "originated": 34213,
       "orig_pct": 41.3,
       "deny_pct": 22.9,
       "avg_loan": 592970.0,
-      "volume_b": 20.3
+      "volume_b": 20.3,
+      "county_name": "Miami-Dade County"
     },
     {
-      "fips": "MI26163",
+      "fips": "26163",
       "state": "MI",
-      "county": "26163",
       "apps": 66762,
       "originated": 33662,
       "orig_pct": 50.4,
       "deny_pct": 21.1,
       "avg_loan": 216498.0,
-      "volume_b": 7.3
+      "volume_b": 7.3,
+      "county_name": "Wayne County"
     },
     {
-      "fips": "NC37183",
+      "fips": "37183",
       "state": "NC",
-      "county": "37183",
       "apps": 59841,
       "originated": 32301,
       "orig_pct": 54.0,
       "deny_pct": 13.0,
       "avg_loan": 396320.0,
-      "volume_b": 12.8
+      "volume_b": 12.8,
+      "county_name": "Wake County"
     },
     {
-      "fips": "MI26125",
+      "fips": "26125",
       "state": "MI",
-      "county": "26125",
       "apps": 55745,
       "originated": 31662,
       "orig_pct": 56.8,
       "deny_pct": 15.2,
       "avg_loan": 337815.0,
-      "volume_b": 10.7
+      "volume_b": 10.7,
+      "county_name": "Oakland County"
     },
     {
-      "fips": "FL12011",
+      "fips": "12011",
       "state": "FL",
-      "county": "12011",
       "apps": 75922,
       "originated": 31265,
       "orig_pct": 41.2,
       "deny_pct": 22.6,
       "avg_loan": 420845.0,
-      "volume_b": 13.2
+      "volume_b": 13.2,
+      "county_name": "Broward County"
     },
     {
-      "fips": "TX48085",
+      "fips": "48085",
       "state": "TX",
-      "county": "48085",
       "apps": 61924,
       "originated": 31188,
       "orig_pct": 50.4,
       "deny_pct": 12.2,
       "avg_loan": 441796.0,
-      "volume_b": 13.8
+      "volume_b": 13.8,
+      "county_name": "Collin County"
     },
     {
-      "fips": "TX48113",
+      "fips": "48113",
       "state": "TX",
-      "county": "48113",
       "apps": 67012,
       "originated": 31012,
       "orig_pct": 46.3,
       "deny_pct": 17.1,
       "avg_loan": 468685.0,
-      "volume_b": 14.5
+      "volume_b": 14.5,
+      "county_name": "Dallas County"
     },
     {
-      "fips": "FL12057",
+      "fips": "12057",
       "state": "FL",
-      "county": "12057",
       "apps": 64810,
       "originated": 30406,
       "orig_pct": 46.9,
       "deny_pct": 17.7,
       "avg_loan": 379961.0,
-      "volume_b": 11.6
+      "volume_b": 11.6,
+      "county_name": "Hillsborough County"
     },
     {
-      "fips": "OH39049",
+      "fips": "39049",
       "state": "OH",
-      "county": "39049",
       "apps": 55887,
       "originated": 29494,
       "orig_pct": 52.8,
       "deny_pct": 15.0,
       "avg_loan": 321063.0,
-      "volume_b": 9.5
+      "volume_b": 9.5,
+      "county_name": "Franklin County"
     },
     {
-      "fips": "NC37119",
+      "fips": "37119",
       "state": "NC",
-      "county": "37119",
       "apps": 56192,
       "originated": 29329,
       "orig_pct": 52.2,
       "deny_pct": 14.9,
       "avg_loan": 441806.0,
-      "volume_b": 13.0
+      "volume_b": 13.0,
+      "county_name": "Mecklenburg County"
     },
     {
-      "fips": "MA25017",
+      "fips": "25017",
       "state": "MA",
-      "county": "25017",
       "apps": 52180,
       "originated": 29143,
       "orig_pct": 55.9,
       "deny_pct": 11.8,
       "avg_loan": 583511.0,
-      "volume_b": 17.0
+      "volume_b": 17.0,
+      "county_name": "Middlesex County"
     },
     {
-      "fips": "CA06067",
+      "fips": "06067",
       "state": "CA",
-      "county": "06067",
       "apps": 56432,
       "originated": 28727,
       "orig_pct": 50.9,
       "deny_pct": 14.4,
       "avg_loan": 399964.0,
-      "volume_b": 11.5
+      "volume_b": 11.5,
+      "county_name": "Sacramento County"
     },
     {
-      "fips": "UT49035",
+      "fips": "49035",
       "state": "UT",
-      "county": "49035",
       "apps": 51776,
       "originated": 28608,
       "orig_pct": 55.3,
       "deny_pct": 15.8,
       "avg_loan": 398224.0,
-      "volume_b": 11.4
+      "volume_b": 11.4,
+      "county_name": "Salt Lake County"
     },
     {
-      "fips": "FL12099",
+      "fips": "12099",
       "state": "FL",
-      "county": "12099",
       "apps": 63683,
       "originated": 28336,
       "orig_pct": 44.5,
       "deny_pct": 19.6,
       "avg_loan": 506652.0,
-      "volume_b": 14.4
+      "volume_b": 14.4,
+      "county_name": "Palm Beach County"
     },
     {
-      "fips": "OH39035",
+      "fips": "39035",
       "state": "OH",
-      "county": "39035",
       "apps": 55025,
       "originated": 28037,
       "orig_pct": 51.0,
       "deny_pct": 17.5,
       "avg_loan": 209327.0,
-      "volume_b": 5.9
+      "volume_b": 5.9,
+      "county_name": "Cuyahoga County"
     },
     {
-      "fips": "PA42003",
+      "fips": "42003",
       "state": "PA",
-      "county": "42003",
       "apps": 48490,
       "originated": 26765,
       "orig_pct": 55.2,
       "deny_pct": 15.0,
       "avg_loan": 233409.0,
-      "volume_b": 6.2
+      "volume_b": 6.2,
+      "county_name": "Allegheny County"
     },
     {
-      "fips": "NY36103",
+      "fips": "36103",
       "state": "NY",
-      "county": "36103",
       "apps": 51295,
       "originated": 26408,
       "orig_pct": 51.5,
       "deny_pct": 18.0,
       "avg_loan": 519700.0,
-      "volume_b": 13.7
+      "volume_b": 13.7,
+      "county_name": "Suffolk County"
     },
     {
-      "fips": "TX48121",
+      "fips": "48121",
       "state": "TX",
-      "county": "48121",
       "apps": 52076,
       "originated": 25902,
       "orig_pct": 49.7,
       "deny_pct": 13.2,
       "avg_loan": 445386.0,
-      "volume_b": 11.5
+      "volume_b": 11.5,
+      "county_name": "Denton County"
     },
     {
-      "fips": "MN27053",
+      "fips": "27053",
       "state": "MN",
-      "county": "27053",
       "apps": 44056,
       "originated": 25785,
       "orig_pct": 58.5,
       "deny_pct": 11.4,
       "avg_loan": 377518.0,
-      "volume_b": 9.7
+      "volume_b": 9.7,
+      "county_name": "Hennepin County"
     },
     {
-      "fips": "CA06085",
+      "fips": "06085",
       "state": "CA",
-      "county": "06085",
       "apps": 45836,
       "originated": 25548,
       "orig_pct": 55.7,
       "deny_pct": 12.8,
       "avg_loan": 1099097.0,
-      "volume_b": 28.1
+      "volume_b": 28.1,
+      "county_name": "Santa Clara County"
     },
     {
-      "fips": "FL12095",
+      "fips": "12095",
       "state": "FL",
-      "county": "12095",
       "apps": 55334,
       "originated": 25000,
       "orig_pct": 45.2,
       "deny_pct": 19.2,
       "avg_loan": 453275.0,
-      "volume_b": 11.3
+      "volume_b": 11.3,
+      "county_name": "Orange County"
     },
     {
-      "fips": "PA42101",
+      "fips": "42101",
       "state": "PA",
-      "county": "42101",
       "apps": 53143,
       "originated": 24855,
       "orig_pct": 46.8,
       "deny_pct": 19.9,
       "avg_loan": 295315.0,
-      "volume_b": 7.3
+      "volume_b": 7.3,
+      "county_name": "Philadelphia County"
     },
     {
-      "fips": "AZ04019",
+      "fips": "04019",
       "state": "AZ",
-      "county": "04019",
       "apps": 46784,
       "originated": 23245,
       "orig_pct": 49.7,
       "deny_pct": 13.3,
       "avg_loan": 300177.0,
-      "volume_b": 7.0
+      "volume_b": 7.0,
+      "county_name": "Pima County"
     },
     {
-      "fips": "FL12071",
+      "fips": "12071",
       "state": "FL",
-      "county": "12071",
       "apps": 47588,
       "originated": 23123,
       "orig_pct": 48.6,
       "deny_pct": 16.6,
       "avg_loan": 317794.0,
-      "volume_b": 7.3
+      "volume_b": 7.3,
+      "county_name": "Lee County"
     },
     {
-      "fips": "MO29189",
+      "fips": "29189",
       "state": "MO",
-      "county": "29189",
       "apps": 43314,
       "originated": 22973,
       "orig_pct": 53.0,
       "deny_pct": 12.7,
       "avg_loan": 272672.0,
-      "volume_b": 6.3
+      "volume_b": 6.3,
+      "county_name": "St. Louis County"
     },
     {
-      "fips": "WA53053",
+      "fips": "53053",
       "state": "WA",
-      "county": "53053",
       "apps": 42695,
       "originated": 22907,
       "orig_pct": 53.7,
       "deny_pct": 14.9,
       "avg_loan": 407213.0,
-      "volume_b": 9.3
+      "volume_b": 9.3,
+      "county_name": "Pierce County"
     },
     {
-      "fips": "GA13121",
+      "fips": "13121",
       "state": "GA",
-      "county": "13121",
       "apps": 49537,
       "originated": 22562,
       "orig_pct": 45.5,
       "deny_pct": 17.3,
       "avg_loan": 480971.0,
-      "volume_b": 10.9
+      "volume_b": 10.9,
+      "county_name": "Fulton County"
     },
     {
-      "fips": "CO08041",
+      "fips": "08041",
       "state": "CO",
-      "county": "08041",
       "apps": 40652,
       "originated": 22427,
       "orig_pct": 55.2,
       "deny_pct": 12.8,
       "avg_loan": 369718.0,
-      "volume_b": 8.3
+      "volume_b": 8.3,
+      "county_name": "El Paso County"
     },
     {
-      "fips": "IN18097",
+      "fips": "18097",
       "state": "IN",
-      "county": "18097",
       "apps": 43450,
       "originated": 22070,
       "orig_pct": 50.8,
       "deny_pct": 16.0,
       "avg_loan": 273702.0,
-      "volume_b": 6.0
+      "volume_b": 6.0,
+      "county_name": "Marion County"
     },
     {
-      "fips": "CA06001",
+      "fips": "06001",
       "state": "CA",
-      "county": "06001",
       "apps": 41969,
       "originated": 21940,
       "orig_pct": 52.3,
       "deny_pct": 14.1,
       "avg_loan": 750210.0,
-      "volume_b": 16.5
+      "volume_b": 16.5,
+      "county_name": "Alameda County"
     },
     {
-      "fips": "MI26099",
+      "fips": "26099",
       "state": "MI",
-      "county": "26099",
       "apps": 38626,
       "originated": 21473,
       "orig_pct": 55.6,
       "deny_pct": 17.8,
       "avg_loan": 225631.0,
-      "volume_b": 4.8
+      "volume_b": 4.8,
+      "county_name": "Macomb County"
     },
     {
-      "fips": "FL12031",
+      "fips": "12031",
       "state": "FL",
-      "county": "12031",
       "apps": 46317,
       "originated": 21470,
       "orig_pct": 46.4,
       "deny_pct": 17.5,
       "avg_loan": 320586.0,
-      "volume_b": 6.9
+      "volume_b": 6.9,
+      "county_name": "Duval County"
     },
     {
-      "fips": "VA51059",
+      "fips": "51059",
       "state": "VA",
-      "county": "51059",
       "apps": 40638,
       "originated": 20772,
       "orig_pct": 51.1,
       "deny_pct": 12.7,
       "avg_loan": 580707.0,
-      "volume_b": 12.1
+      "volume_b": 12.1,
+      "county_name": "Fairfax County"
     },
     {
-      "fips": "CT09110",
+      "fips": "09110",
       "state": "CT",
-      "county": "09110",
       "apps": 36793,
       "originated": 20452,
       "orig_pct": 55.6,
       "deny_pct": 14.9,
       "avg_loan": 279688.0,
-      "volume_b": 5.7
+      "volume_b": 5.7,
+      "county_name": "Unknown"
     },
     {
-      "fips": "UT49049",
+      "fips": "49049",
       "state": "UT",
-      "county": "49049",
       "apps": 35682,
       "originated": 20125,
       "orig_pct": 56.4,
       "deny_pct": 12.9,
       "avg_loan": 384059.0,
-      "volume_b": 7.7
+      "volume_b": 7.7,
+      "county_name": "Utah County"
     },
     {
-      "fips": "TX48453",
+      "fips": "48453",
       "state": "TX",
-      "county": "48453",
       "apps": 41183,
       "originated": 20120,
       "orig_pct": 48.9,
       "deny_pct": 13.8,
       "avg_loan": 539809.0,
-      "volume_b": 10.9
+      "volume_b": 10.9,
+      "county_name": "Travis County"
     },
     {
-      "fips": "FL12105",
+      "fips": "12105",
       "state": "FL",
-      "county": "12105",
       "apps": 45678,
       "originated": 20104,
       "orig_pct": 44.0,
       "deny_pct": 19.4,
       "avg_loan": 273877.0,
-      "volume_b": 5.5
+      "volume_b": 5.5,
+      "county_name": "Polk County"
     },
     {
-      "fips": "TX48339",
+      "fips": "48339",
       "state": "TX",
-      "county": "48339",
       "apps": 43329,
       "originated": 19948,
       "orig_pct": 46.0,
       "deny_pct": 15.6,
       "avg_loan": 338933.0,
-      "volume_b": 6.8
+      "volume_b": 6.8,
+      "county_name": "Montgomery County"
     }
   ]
 }

@@ -1,7 +1,8 @@
 # Data files (too large for git)
 hmda.db
 *.zip
-*.txt
+# Large HMDA text extract
+2025_combined_mlar_header.txt
 
 # Python
 __pycache__/

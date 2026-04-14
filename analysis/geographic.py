@@ -1,6 +1,25 @@
 """Geographic HMDA analysis — state and county level."""
 
+import csv
+import os
+
 from .db import query
+
+COUNTY_FIPS_FILE = os.path.join(os.path.dirname(__file__), "county_fips.txt")
+
+
+def _load_county_names():
+    """Load FIPS-to-county-name lookup from Census file.
+
+    Returns dict keyed by 5-digit FIPS (e.g. "04013") -> "Maricopa County".
+    """
+    names = {}
+    with open(COUNTY_FIPS_FILE, encoding="utf-8") as f:
+        reader = csv.DictReader(f, delimiter="|")
+        for row in reader:
+            fips5 = row["STATEFP"] + row["COUNTYFP"]
+            names[fips5] = row["COUNTYNAME"]
+    return names
 
 
 def state_overview():
@@ -38,11 +57,11 @@ def state_overview():
 
 def top_counties(limit=50):
     """Top counties by origination volume."""
-    return query("""
+    county_names = _load_county_names()
+    rows = query("""
         SELECT
-            state_code || county_code as fips,
+            county_code as fips,
             state_code as state,
-            county_code as county,
             COUNT(*) as apps,
             SUM(CASE WHEN action_taken = '1' THEN 1 ELSE 0 END) as originated,
             ROUND(SUM(CASE WHEN action_taken = '1' THEN 1.0 ELSE 0 END) / COUNT(*) * 100, 1) as orig_pct,
@@ -55,6 +74,9 @@ def top_counties(limit=50):
         ORDER BY originated DESC
         LIMIT ?
     """, [limit])
+    for r in rows:
+        r["county_name"] = county_names.get(r["fips"], "Unknown")
+    return rows
 
 
 def state_rankings():

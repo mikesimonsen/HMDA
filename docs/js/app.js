@@ -199,6 +199,7 @@ function renderGeographic() {
   countyTable.querySelector("tbody").innerHTML = g.top_counties.map(c => `
     <tr>
       <td>${c.fips}</td>
+      <td>${c.county_name || "Unknown"}</td>
       <td>${c.state}</td>
       <td class="num" data-sort="${c.originated}">${fmt.num(c.originated)}</td>
       <td class="num" data-sort="${c.volume_b}">${fmt.billions(c.volume_b)}</td>
