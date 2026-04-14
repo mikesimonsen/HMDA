@@ -34,7 +34,7 @@ def main():
     write_json("national.json", national.generate())
 
     print("Running geographic analysis...")
-    write_json("geographic.json", geographic.generate())
+    write_json("geographic.json", geographic.generate(), compact=True)
 
     print("Running cube analysis...")
     write_json("cube.json", cube.generate())

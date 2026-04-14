@@ -125,8 +125,12 @@
   <!-- ============ GEOGRAPHIC ============ -->
   <div id="sec-geographic" class="section">
 
+    <div id="geo-filters" class="active-filters">
+      <span class="filter-hint">Filters from the Overview page apply here.</span>
+    </div>
+
     <div class="card">
-      <h2>All States</h2>
+      <h2 id="geo-table-title">All States</h2>
       <div class="filter-bar">
         <input type="text" id="state-filter" placeholder="Filter by state name or code...">
       </div>
@@ -169,8 +173,13 @@
 
   <!-- ============ COUNTIES ============ -->
   <div id="sec-counties" class="section">
+
+    <div id="county-filters" class="active-filters">
+      <span class="filter-hint">Filters from the Overview page apply here.</span>
+    </div>
+
     <div class="card">
-      <h2>Top 50 Counties by Origination Volume</h2>
+      <h2 id="county-table-title">Top Counties by Volume</h2>
       <div style="overflow-x: auto;">
         <table id="table-counties">
           <thead>

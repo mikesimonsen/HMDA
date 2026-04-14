@@ -49,20 +49,22 @@ async function loadData() {
   ]);
   data = { cube, geographic, lenders };
 
-  // Build a lender lookup index for fast filtering
-  data.lenderIndex = buildLenderIndex(lenders);
+  // Build lookup indexes for fast filtering
+  data.lenderIndex = buildIndex(lenders.cube, "l");
+  data.stateIndex = buildIndex(geographic.state_cube, "state");
+  data.countyIndex = buildIndex(geographic.county_cube, "fips");
 
   renderAll();
 }
 
-function buildLenderIndex(lenders) {
-  // Group compact cube rows by LEI for fast aggregation
-  const byLei = {};
-  for (const r of lenders.cube) {
-    if (!byLei[r.l]) byLei[r.l] = [];
-    byLei[r.l].push(r);
+function buildIndex(rows, key) {
+  const idx = {};
+  for (const r of rows) {
+    const k = r[key];
+    if (!idx[k]) idx[k] = [];
+    idx[k].push(r);
   }
-  return byLei;
+  return idx;
 }
 
 /* ---- Filtering engine ---- */
@@ -124,6 +126,7 @@ const fmt = {
 function onFilterChange() {
   renderNational();
   renderLenders();
+  renderGeographic();
 }
 
 /* ---- Navigation ---- */
@@ -168,38 +171,7 @@ function makeSortable(tableEl) {
 
 /* ---- Filter chip display ---- */
 function renderFilterBar() {
-  const el = document.getElementById("active-filters");
-  const chips = [];
-
-  if (filters.action != null)
-    chips.push({ key: "action", label: ACTION_LABELS[filters.action] || filters.action });
-  if (filters.loanType != null)
-    chips.push({ key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType] || filters.loanType });
-  if (filters.loanPurpose != null)
-    chips.push({ key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose] || filters.loanPurpose });
-
-  if (chips.length === 0) {
-    el.innerHTML = '<span class="filter-hint">Click any chart segment to filter</span>';
-    return;
-  }
-
-  el.innerHTML = chips.map(c => `
-    <span class="filter-chip" data-key="${c.key}">
-      ${c.label} <button>&times;</button>
-    </span>
-  `).join("") + '<button class="filter-clear">Clear all</button>';
-
-  el.querySelectorAll(".filter-chip button").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const key = btn.parentElement.dataset.key;
-      filters[key] = null;
-      onFilterChange();
-    });
-  });
-  el.querySelector(".filter-clear").addEventListener("click", () => {
-    filters = { action: null, loanType: null, loanPurpose: null };
-    renderNational();
-  });
+  renderFilterChips("active-filters", "Click any chart segment to filter");
 }
 
 /* ---- Render functions ---- */
@@ -311,8 +283,48 @@ function renderNational() {
   );
 }
 
-/* ---- Lender aggregation from compact cube ---- */
-function aggregateLenderRows(rows) {
+/* ---- Compact cube helpers (shared by lenders, states, counties) ---- */
+function filterCompact(rows) {
+  return rows.filter(r =>
+    (filters.action == null || r.a === filters.action) &&
+    (filters.loanType == null || r.t === filters.loanType) &&
+    (filters.loanPurpose == null || r.p === filters.loanPurpose)
+  );
+}
+
+function activeFilterDescription() {
+  const parts = [];
+  if (filters.action != null) parts.push(ACTION_LABELS[filters.action]);
+  if (filters.loanType != null) parts.push(LOAN_TYPE_LABELS[filters.loanType]);
+  if (filters.loanPurpose != null) parts.push(LOAN_PURPOSE_LABELS[filters.loanPurpose]);
+  return parts.length ? parts.join(" + ") : "";
+}
+
+function renderFilterChips(elId, hint) {
+  const el = document.getElementById(elId);
+  const chips = [];
+  if (filters.action != null) chips.push({key: "action", label: ACTION_LABELS[filters.action]});
+  if (filters.loanType != null) chips.push({key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType]});
+  if (filters.loanPurpose != null) chips.push({key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose]});
+
+  if (chips.length === 0) {
+    el.innerHTML = `<span class="filter-hint">${hint}</span>`;
+    return;
+  }
+  el.innerHTML = chips.map(c => `
+    <span class="filter-chip" data-key="${c.key}">${c.label} <button>&times;</button></span>
+  `).join("") + '<button class="filter-clear">Clear all</button>';
+  el.querySelectorAll(".filter-chip button").forEach(btn => {
+    btn.addEventListener("click", () => { filters[btn.parentElement.dataset.key] = null; onFilterChange(); });
+  });
+  el.querySelector(".filter-clear").addEventListener("click", () => {
+    filters = { action: null, loanType: null, loanPurpose: null };
+    onFilterChange();
+  });
+}
+
+
+function aggregateCompact(rows) {
   let count = 0, sumLoan = 0, sumRate = 0, rateCount = 0;
   let originated = 0, denied = 0, origLoan = 0, origRate = 0, origRateCount = 0;
   for (const r of rows) {
@@ -343,49 +355,19 @@ function renderLenders() {
   const statesMap = data.lenders.states;
   const index = data.lenderIndex;
 
-  // Build filter description for title
-  const filterParts = [];
-  if (filters.action != null) filterParts.push(ACTION_LABELS[filters.action]);
-  if (filters.loanType != null) filterParts.push(LOAN_TYPE_LABELS[filters.loanType]);
-  if (filters.loanPurpose != null) filterParts.push(LOAN_PURPOSE_LABELS[filters.loanPurpose]);
-
-  const titleEl = document.getElementById("lender-table-title");
-  titleEl.textContent = filterParts.length
-    ? `Lenders — ${filterParts.join(" + ")}`
-    : "Top Lenders";
-
-  // Filter chips on lender page
-  const filterEl = document.getElementById("lender-filters");
-  if (filterParts.length === 0) {
-    filterEl.innerHTML = '<span class="filter-hint">Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.</span>';
-  } else {
-    const chips = [];
-    if (filters.action != null) chips.push({key: "action", label: ACTION_LABELS[filters.action]});
-    if (filters.loanType != null) chips.push({key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType]});
-    if (filters.loanPurpose != null) chips.push({key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose]});
-    filterEl.innerHTML = chips.map(c => `
-      <span class="filter-chip" data-key="${c.key}">${c.label} <button>&times;</button></span>
-    `).join("") + '<button class="filter-clear">Clear all</button>';
-    filterEl.querySelectorAll(".filter-chip button").forEach(btn => {
-      btn.addEventListener("click", () => { filters[btn.parentElement.dataset.key] = null; onFilterChange(); });
-    });
-    filterEl.querySelector(".filter-clear").addEventListener("click", () => {
-      filters = { action: null, loanType: null, loanPurpose: null };
-      onFilterChange();
-    });
-  }
+  // Title and filter chips
+  const filterDesc = activeFilterDescription();
+  document.getElementById("lender-table-title").textContent = filterDesc
+    ? `Lenders — ${filterDesc}` : "Top Lenders";
+  renderFilterChips("lender-filters", "Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.");
 
   // Aggregate per lender with current filters
   const lenderStats = [];
   for (const [lei, rows] of Object.entries(index)) {
-    const filtered = rows.filter(r =>
-      (filters.action == null || r.a === filters.action) &&
-      (filters.loanType == null || r.t === filters.loanType) &&
-      (filters.loanPurpose == null || r.p === filters.loanPurpose)
-    );
+    const filtered = filterCompact(rows);
     if (filtered.length === 0) continue;
 
-    const agg = aggregateLenderRows(filtered);
+    const agg = aggregateCompact(filtered);
     const name = names[lei] || lei;
     const topStates = (statesMap[lei] || []).map(s => s.state).join(", ");
 
@@ -459,50 +441,96 @@ function renderLenders() {
 }
 
 function renderGeographic() {
-  const g = data.geographic;
+  if (!data.geographic) return;
+
+  const countyNames = data.geographic.county_names;
+
+  // Filter chips
+  const filterDesc = activeFilterDescription();
+  renderFilterChips("geo-filters", "Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.");
+  renderFilterChips("county-filters", "Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.");
+
+  document.getElementById("geo-table-title").textContent = filterDesc
+    ? `All States — ${filterDesc}` : "All States";
+  document.getElementById("county-table-title").textContent = filterDesc
+    ? `Top Counties — ${filterDesc}` : "Top Counties by Volume";
+
+  // --- Aggregate states from cube ---
+  const stateStats = [];
+  for (const [state, rows] of Object.entries(data.stateIndex)) {
+    const filtered = filterCompact(rows);
+    if (filtered.length === 0) continue;
+    const agg = aggregateCompact(filtered);
+    stateStats.push({ state, ...agg });
+  }
+  stateStats.sort((a, b) => b.apps - a.apps);
+
+  // State table with search
   const stateFilter = document.getElementById("state-filter");
   const stateTable = document.getElementById("table-states");
 
-  function renderStateTable(filter = "") {
-    const filtered = g.states.filter(s =>
-      !filter || s.state.toLowerCase().includes(filter) ||
-      (STATE_NAMES[s.state] || "").toLowerCase().includes(filter)
-    );
+  function renderStateTable(search = "") {
+    const filtered = search
+      ? stateStats.filter(s => s.state.toLowerCase().includes(search) ||
+          (STATE_NAMES[s.state] || "").toLowerCase().includes(search))
+      : stateStats;
+
     stateTable.querySelector("tbody").innerHTML = filtered.map(s => `
       <tr>
         <td><strong>${s.state}</strong> <span style="color:var(--text-secondary);font-size:0.8rem">${STATE_NAMES[s.state] || ""}</span></td>
         <td class="num" data-sort="${s.apps}">${fmt.num(s.apps)}</td>
         <td class="num" data-sort="${s.originated}">${fmt.num(s.originated)}</td>
-        <td class="num" data-sort="${s.volume_b}">${fmt.billions(s.volume_b)}</td>
-        <td class="num" data-sort="${s.orig_pct}">${fmt.pct(s.orig_pct)}</td>
-        <td class="num" data-sort="${s.deny_pct}">${fmt.pct(s.deny_pct)}</td>
-        <td class="num" data-sort="${s.avg_loan}">${fmt.dollar(s.avg_loan)}</td>
-        <td class="num" data-sort="${s.avg_rate}">${fmt.rate(s.avg_rate)}</td>
+        <td class="num" data-sort="${s.sumLoan}">${fmt.billions(s.sumLoan / 1e9)}</td>
+        <td class="num" data-sort="${s.origPct}">${fmt.pct(s.origPct)}</td>
+        <td class="num" data-sort="${s.denyPct}">${fmt.pct(s.denyPct)}</td>
+        <td class="num" data-sort="${s.avgLoan}">${fmt.dollar(s.avgLoan)}</td>
+        <td class="num" data-sort="${s.avgRate}">${s.avgRate ? fmt.rate(s.avgRate) : "—"}</td>
       </tr>
     `).join("");
     makeSortable(stateTable);
   }
 
   renderStateTable();
-  stateFilter.addEventListener("input", e => renderStateTable(e.target.value.toLowerCase()));
+  // Replace input to clear old listeners
+  const newStateFilter = stateFilter.cloneNode(true);
+  stateFilter.parentNode.replaceChild(newStateFilter, stateFilter);
+  newStateFilter.addEventListener("input", e => renderStateTable(e.target.value.toLowerCase()));
 
-  const rankings = g.rankings;
-  renderHBar("chart-vol-rank", rankings.by_volume.map(s => s.state), rankings.by_volume.map(s => s.originated), "Top 10 States by Originations");
-  renderHBar("chart-expensive-rank", rankings.most_expensive.map(s => s.state), rankings.most_expensive.map(s => s.avg_loan), "Highest Avg Loan Amount", true);
-  renderHBar("chart-denial-rank", rankings.highest_denial.map(s => s.state), rankings.highest_denial.map(s => s.deny_pct), "Highest Denial Rates (%)");
-  renderHBar("chart-rate-rank", rankings.highest_rate.map(s => s.state), rankings.highest_rate.map(s => s.avg_rate), "Highest Avg Interest Rates (%)");
+  // State ranking charts (computed from filtered data)
+  const byVolume = [...stateStats].sort((a, b) => b.originated - a.originated).slice(0, 10);
+  const byAvgLoan = [...stateStats].filter(s => s.avgLoan != null).sort((a, b) => b.avgLoan - a.avgLoan).slice(0, 10);
+  const byDenial = [...stateStats].filter(s => s.denyPct != null && s.apps >= 1000).sort((a, b) => b.denyPct - a.denyPct).slice(0, 10);
+  const byRate = [...stateStats].filter(s => s.avgRate != null && s.apps >= 1000).sort((a, b) => b.avgRate - a.avgRate).slice(0, 10);
+
+  renderHBar("chart-vol-rank", byVolume.map(s => s.state), byVolume.map(s => s.originated), "Top 10 States by Originations");
+  renderHBar("chart-expensive-rank", byAvgLoan.map(s => s.state), byAvgLoan.map(s => s.avgLoan), "Highest Avg Loan Amount", true);
+  renderHBar("chart-denial-rank", byDenial.map(s => s.state), byDenial.map(s => s.denyPct), "Highest Denial Rates (%)");
+  renderHBar("chart-rate-rank", byRate.map(s => s.state), byRate.map(s => s.avgRate), "Highest Avg Interest Rates (%)");
+
+  // --- Aggregate counties from cube ---
+  const countyStats = [];
+  for (const [fips, rows] of Object.entries(data.countyIndex)) {
+    const filtered = filterCompact(rows);
+    if (filtered.length === 0) continue;
+    const agg = aggregateCompact(filtered);
+    // Get state from first row
+    const state = rows[0].state;
+    const name = countyNames[fips] || "Unknown";
+    countyStats.push({ fips, state, name, ...agg });
+  }
+  countyStats.sort((a, b) => b.apps - a.apps);
 
   const countyTable = document.getElementById("table-counties");
-  countyTable.querySelector("tbody").innerHTML = g.top_counties.map(c => `
+  countyTable.querySelector("tbody").innerHTML = countyStats.slice(0, 100).map(c => `
     <tr>
       <td>${c.fips}</td>
-      <td>${c.county_name || "Unknown"}</td>
+      <td>${c.name}</td>
       <td>${c.state}</td>
       <td class="num" data-sort="${c.originated}">${fmt.num(c.originated)}</td>
-      <td class="num" data-sort="${c.volume_b}">${fmt.billions(c.volume_b)}</td>
-      <td class="num" data-sort="${c.orig_pct}">${fmt.pct(c.orig_pct)}</td>
-      <td class="num" data-sort="${c.deny_pct}">${fmt.pct(c.deny_pct)}</td>
-      <td class="num" data-sort="${c.avg_loan}">${fmt.dollar(c.avg_loan)}</td>
+      <td class="num" data-sort="${c.sumLoan}">${fmt.billions(c.sumLoan / 1e9)}</td>
+      <td class="num" data-sort="${c.origPct}">${fmt.pct(c.origPct)}</td>
+      <td class="num" data-sort="${c.denyPct}">${fmt.pct(c.denyPct)}</td>
+      <td class="num" data-sort="${c.avgLoan}">${fmt.dollar(c.avgLoan)}</td>
     </tr>
   `).join("");
   makeSortable(countyTable);
