@@ -1,21 +1,18 @@
 """Generate filterable data cubes for the interactive frontend.
 
-Instead of pre-aggregated totals, this produces granular aggregates at the
-(action_taken, loan_type, loan_purpose) grain so the JS frontend can slice
-and dice by clicking chart segments.
+Produces granular aggregates at the (year, action_taken, loan_type, loan_purpose)
+grain so the JS frontend can slice and dice by clicking chart segments and
+selecting years.
 """
 
 from .db import query
 
 
 def main_cube():
-    """Core cube: counts and sums at (action, type, purpose) grain.
-
-    Each row has additive metrics the frontend can sum/average across any
-    combination of filters.
-    """
+    """Core cube: counts and sums at (year, action, type, purpose) grain."""
     return query("""
         SELECT
+            activity_year as y,
             action_taken,
             loan_type,
             loan_purpose,
@@ -26,14 +23,15 @@ def main_cube():
             SUM(CASE WHEN interest_rate NOT IN ('Exempt', 'NA', '')
                 THEN 1 ELSE 0 END) as rate_count
         FROM hmda
-        GROUP BY action_taken, loan_type, loan_purpose
+        GROUP BY activity_year, action_taken, loan_type, loan_purpose
     """)
 
 
 def rate_cube():
-    """Rate distribution cube for originated loans at (type, purpose, bucket) grain."""
+    """Rate distribution cube for originated loans at (year, type, purpose, bucket) grain."""
     return query("""
         SELECT
+            activity_year as y,
             loan_type,
             loan_purpose,
             CASE
@@ -49,14 +47,15 @@ def rate_cube():
         FROM hmda
         WHERE action_taken = '1'
           AND interest_rate NOT IN ('Exempt', 'NA', '')
-        GROUP BY loan_type, loan_purpose, rate_bucket
+        GROUP BY activity_year, loan_type, loan_purpose, rate_bucket
     """)
 
 
 def denial_cube():
-    """Denial reason cube at (type, purpose, reason) grain."""
+    """Denial reason cube at (year, type, purpose, reason) grain."""
     return query("""
         SELECT
+            activity_year as y,
             loan_type,
             loan_purpose,
             denial_reason_1 as reason,
@@ -65,7 +64,7 @@ def denial_cube():
         WHERE action_taken = '3'
           AND denial_reason_1 != ''
           AND denial_reason_1 != '10'
-        GROUP BY loan_type, loan_purpose, denial_reason_1
+        GROUP BY activity_year, loan_type, loan_purpose, denial_reason_1
     """)
 
 

@@ -13,25 +13,32 @@ import urllib.request
 from .db import query
 
 FILER_CACHE = os.path.join(os.path.dirname(__file__), "filer_cache.json")
-CFPB_URL = "https://ffiec.cfpb.gov/v2/reporting/filers/2025"
+CFPB_BASE = "https://ffiec.cfpb.gov/v2/reporting/filers"
+YEARS = list(range(2018, 2026))
 
 
 def _fetch_lender_names():
-    """Fetch LEI-to-name mapping from CFPB, with local cache."""
+    """Fetch LEI-to-name mapping from CFPB for all years, with local cache."""
     if os.path.exists(FILER_CACHE):
         with open(FILER_CACHE) as f:
             return json.load(f)
 
-    print("    Fetching lender names from CFPB...")
-    req = urllib.request.Request(CFPB_URL)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        data = json.loads(resp.read())
-
-    names = {inst["lei"]: inst["name"] for inst in data["institutions"]}
+    names = {}
+    for year in YEARS:
+        url = f"{CFPB_BASE}/{year}"
+        print(f"    Fetching lender names for {year}...")
+        try:
+            req = urllib.request.Request(url)
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = json.loads(resp.read())
+            for inst in data["institutions"]:
+                names[inst["lei"]] = inst["name"]
+        except Exception as e:
+            print(f"    Warning: failed for {year}: {e}")
 
     with open(FILER_CACHE, "w") as f:
         json.dump(names, f)
-    print(f"    Cached {len(names)} lender names")
+    print(f"    Cached {len(names)} lender names across {len(YEARS)} years")
     return names
 
 

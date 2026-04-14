@@ -31,9 +31,10 @@ def _load_county_lookup():
 
 
 def state_cube():
-    """State cube at (state, action, type, purpose) grain."""
+    """State cube at (year, state, action, type, purpose) grain."""
     rows = query("""
         SELECT
+            activity_year as y,
             state_code as state,
             action_taken as a,
             loan_type as t,
@@ -46,7 +47,7 @@ def state_cube():
                 THEN 1 ELSE 0 END) as rc
         FROM hmda
         WHERE state_code != '' AND state_code != 'NA'
-        GROUP BY state_code, action_taken, loan_type, loan_purpose
+        GROUP BY activity_year, state_code, action_taken, loan_type, loan_purpose
     """)
     # Round to save space
     for row in rows:
@@ -66,6 +67,7 @@ def county_cube(top_n=200):
 
     rows = query("""
         SELECT
+            activity_year as y,
             county_code as fips,
             state_code as state,
             action_taken as a,
@@ -85,7 +87,7 @@ def county_cube(top_n=200):
             ORDER BY COUNT(*) DESC
             LIMIT ?
         )
-        GROUP BY county_code, state_code, action_taken, loan_type, loan_purpose
+        GROUP BY activity_year, county_code, state_code, action_taken, loan_type, loan_purpose
     """, [top_n])
 
     # Fix state from FIPS and merge rows that were split by NA vs real state
@@ -94,7 +96,7 @@ def county_cube(top_n=200):
         state = row["state"]
         if state in ("", "NA"):
             state = fips_to_state.get(row["fips"][:2], "")
-        key = (row["fips"], state, row["a"], row["t"], row["p"])
+        key = (row["y"], row["fips"], state, row["a"], row["t"], row["p"])
         if key in merged:
             m = merged[key]
             m["c"] += row["c"]

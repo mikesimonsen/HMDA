@@ -11,7 +11,7 @@
 
 <header>
   <h1>HMDA Explorer</h1>
-  <p>Home Mortgage Disclosure Act data for 2025 — 13.5 million loan applications from 4,774 lenders</p>
+  <p>Home Mortgage Disclosure Act data, 2018-2025</p>
 </header>
 
 <nav>
@@ -26,12 +26,25 @@
   <!-- ============ NATIONAL OVERVIEW ============ -->
   <div id="sec-national" class="section active">
 
+    <div id="year-selector" class="year-selector"></div>
+
     <div id="active-filters" class="active-filters">
-      <span class="filter-hint">Click any chart segment to filter</span>
+      <span class="filter-hint">Click any chart segment or year to filter</span>
     </div>
 
     <div id="nat-summary" class="stats-grid">
       <div class="stat-card"><div class="label">Loading...</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Volume Trends</h2>
+        <div class="chart-container"><canvas id="chart-timeseries"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Rate Trends</h2>
+        <div class="chart-container"><canvas id="chart-rate-trend"></canvas></div>
+      </div>
     </div>
 
     <div class="two-col">

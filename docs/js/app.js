@@ -35,6 +35,7 @@ let charts = {};
 
 /* ---- Active filters (null = all) ---- */
 let filters = {
+  year: null,
   action: null,
   loanType: null,
   loanPurpose: null,
@@ -71,6 +72,7 @@ function buildIndex(rows, key) {
 function filterMain(overrides = {}) {
   const f = { ...filters, ...overrides };
   return data.cube.main.filter(r =>
+    (f.year == null || r.y === f.year) &&
     (f.action == null || r.action_taken === f.action) &&
     (f.loanType == null || r.loan_type === f.loanType) &&
     (f.loanPurpose == null || r.loan_purpose === f.loanPurpose)
@@ -80,6 +82,7 @@ function filterMain(overrides = {}) {
 function filterRates(overrides = {}) {
   const f = { ...filters, ...overrides };
   return data.cube.rates.filter(r =>
+    (f.year == null || r.y === f.year) &&
     (f.loanType == null || r.loan_type === f.loanType) &&
     (f.loanPurpose == null || r.loan_purpose === f.loanPurpose)
   );
@@ -88,6 +91,7 @@ function filterRates(overrides = {}) {
 function filterDenials(overrides = {}) {
   const f = { ...filters, ...overrides };
   return data.cube.denials.filter(r =>
+    (f.year == null || r.y === f.year) &&
     (f.loanType == null || r.loan_type === f.loanType) &&
     (f.loanPurpose == null || r.loan_purpose === f.loanPurpose)
   );
@@ -281,11 +285,49 @@ function renderNational() {
     denialEntries.map(e => e[1]),
     "Top Denial Reasons"
   );
+
+  // --- Time series (ignores year filter to always show all years) ---
+  const byYear = {};
+  const tsRows = filterMain({ year: null }); // ignore year filter for time series
+  for (const r of tsRows) {
+    if (!byYear[r.y]) byYear[r.y] = { apps: 0, orig: 0, denied: 0, sumLoan: 0, sumRate: 0, rateCount: 0 };
+    const y = byYear[r.y];
+    y.apps += r.count;
+    y.sumLoan += r.sum_loan_amount;
+    y.sumRate += r.sum_rate;
+    y.rateCount += r.rate_count;
+    if (r.action_taken === "1") y.orig += r.count;
+    if (r.action_taken === "3") y.denied += r.count;
+  }
+  const years = Object.keys(byYear).sort();
+  data.availableYears = years;
+
+  // Volume time series
+  renderTimeSeries("chart-timeseries",
+    years,
+    [
+      { label: "Applications", data: years.map(y => byYear[y].apps), color: COLORS[0] },
+      { label: "Originated", data: years.map(y => byYear[y].orig), color: COLORS[1] },
+      { label: "Denied", data: years.map(y => byYear[y].denied), color: COLORS[4] },
+    ],
+    "Application Volume by Year"
+  );
+
+  // Avg rate time series
+  renderTimeSeries("chart-rate-trend",
+    years,
+    [{ label: "Avg Rate (%)", data: years.map(y => byYear[y].rateCount ? byYear[y].sumRate / byYear[y].rateCount : null), color: COLORS[3] }],
+    "Average Interest Rate by Year"
+  );
+
+  // Update year selector
+  renderYearSelector(years);
 }
 
 /* ---- Compact cube helpers (shared by lenders, states, counties) ---- */
 function filterCompact(rows) {
   return rows.filter(r =>
+    (filters.year == null || r.y === filters.year) &&
     (filters.action == null || r.a === filters.action) &&
     (filters.loanType == null || r.t === filters.loanType) &&
     (filters.loanPurpose == null || r.p === filters.loanPurpose)
@@ -294,6 +336,7 @@ function filterCompact(rows) {
 
 function activeFilterDescription() {
   const parts = [];
+  if (filters.year != null) parts.push(filters.year);
   if (filters.action != null) parts.push(ACTION_LABELS[filters.action]);
   if (filters.loanType != null) parts.push(LOAN_TYPE_LABELS[filters.loanType]);
   if (filters.loanPurpose != null) parts.push(LOAN_PURPOSE_LABELS[filters.loanPurpose]);
@@ -303,6 +346,7 @@ function activeFilterDescription() {
 function renderFilterChips(elId, hint) {
   const el = document.getElementById(elId);
   const chips = [];
+  if (filters.year != null) chips.push({key: "year", label: filters.year});
   if (filters.action != null) chips.push({key: "action", label: ACTION_LABELS[filters.action]});
   if (filters.loanType != null) chips.push({key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType]});
   if (filters.loanPurpose != null) chips.push({key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose]});
@@ -318,7 +362,7 @@ function renderFilterChips(elId, hint) {
     btn.addEventListener("click", () => { filters[btn.parentElement.dataset.key] = null; onFilterChange(); });
   });
   el.querySelector(".filter-clear").addEventListener("click", () => {
-    filters = { action: null, loanType: null, loanPurpose: null };
+    filters = { year: null, action: null, loanType: null, loanPurpose: null };
     onFilterChange();
   });
 }
@@ -647,6 +691,62 @@ function renderHBar(canvasId, labels, values, title, isDollar = false) {
       },
       scales: { x: { ticks: { callback: v => isDollar ? fmt.dollar(v) : fmt.num(v) } } }
     }
+  });
+}
+
+function renderTimeSeries(canvasId, labels, datasets, title) {
+  destroyChart(canvasId);
+  const ctx = document.getElementById(canvasId).getContext("2d");
+  charts[canvasId] = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels,
+      datasets: datasets.map(ds => ({
+        label: ds.label,
+        data: ds.data,
+        borderColor: ds.color,
+        backgroundColor: ds.color + "22",
+        fill: false,
+        tension: 0.2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        borderWidth: 2.5,
+      }))
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        title: { display: !!title, text: title, font: { size: 14, weight: "600" } },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${typeof ctx.raw === "number" && ctx.raw < 100 ? ctx.raw.toFixed(3) + "%" : fmt.num(ctx.raw)}` } },
+      },
+      scales: {
+        y: { ticks: { callback: v => v >= 1000 ? fmt.num(v) : v } },
+      },
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const idx = elements[0].index;
+        const clickedYear = labels[idx];
+        filters.year = filters.year === clickedYear ? null : clickedYear;
+        onFilterChange();
+      },
+      onHover: (evt, elements) => {
+        evt.native.target.style.cursor = elements.length ? "pointer" : "default";
+      }
+    }
+  });
+}
+
+function renderYearSelector(years) {
+  const el = document.getElementById("year-selector");
+  if (!el) return;
+  el.innerHTML = '<button class="year-btn' + (filters.year == null ? ' active' : '') + '" data-year="">All Years</button>' +
+    years.map(y => `<button class="year-btn${filters.year === y ? ' active' : ''}" data-year="${y}">${y}</button>`).join("");
+  el.querySelectorAll(".year-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const y = btn.dataset.year;
+      filters.year = y === "" ? null : y;
+      onFilterChange();
+    });
   });
 }
 
