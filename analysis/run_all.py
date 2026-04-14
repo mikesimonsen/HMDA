@@ -9,7 +9,7 @@ import time
 # Add project root to path so we can import as a package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from analysis import national, geographic
+from analysis import national, geographic, cube
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "docs", "data")
 
@@ -31,6 +31,9 @@ def main():
 
     print("Running geographic analysis...")
     write_json("geographic.json", geographic.generate())
+
+    print("Running cube analysis...")
+    write_json("cube.json", cube.generate())
 
     elapsed = time.time() - t0
     print(f"\nAll analyses complete in {elapsed:.1f}s")

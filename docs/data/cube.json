@@ -1,0 +1,3419 @@
+{
+  "main": [
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 2581187,
+      "sum_loan_amount": 1105399955000.0,
+      "sum_rate": 16255233.8788,
+      "rate_count": 2461039
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 610146,
+      "sum_loan_amount": 83267850000.0,
+      "sum_rate": 4298400.582906667,
+      "rate_count": 582726
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 780760,
+      "sum_loan_amount": 398265100000.0,
+      "sum_rate": 4825558.00647,
+      "rate_count": 728476
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 731602,
+      "sum_loan_amount": 199309010000.0,
+      "sum_rate": 5455939.75078,
+      "rate_count": 712916
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 610598,
+      "sum_loan_amount": 95808430000.0,
+      "sum_rate": 4617746.56339999,
+      "rate_count": 588748
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 2281,
+      "sum_loan_amount": 5322825000.0,
+      "sum_rate": 20339.221,
+      "rate_count": 2165
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 639830,
+      "sum_loan_amount": 205689750000.0,
+      "sum_rate": 3908443.837,
+      "rate_count": 637717
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 2826,
+      "sum_loan_amount": 929830000.0,
+      "sum_rate": 18325.872,
+      "rate_count": 2805
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 114468,
+      "sum_loan_amount": 42056090000.0,
+      "sum_rate": 693707.156,
+      "rate_count": 114286
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 137931,
+      "sum_loan_amount": 36102285000.0,
+      "sum_rate": 856418.596,
+      "rate_count": 137708
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 10674,
+      "sum_loan_amount": 3227890000.0,
+      "sum_rate": 66855.02,
+      "rate_count": 10636
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 353,
+      "sum_loan_amount": 256025000.0,
+      "sum_rate": 2146.455,
+      "rate_count": 339
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 330978,
+      "sum_loan_amount": 133036640000.0,
+      "sum_rate": 1988764.554,
+      "rate_count": 330043
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 320,
+      "sum_loan_amount": 124630000.0,
+      "sum_rate": 1999.734,
+      "rate_count": 319
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 146106,
+      "sum_loan_amount": 59016260000.0,
+      "sum_rate": 838494.48,
+      "rate_count": 146043
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 83483,
+      "sum_loan_amount": 30346255000.0,
+      "sum_rate": 518234.261,
+      "rate_count": 83411
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 679,
+      "sum_loan_amount": 165155000.0,
+      "sum_rate": 2940.471,
+      "rate_count": 679
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "count": 75,
+      "sum_loan_amount": 28355000.0,
+      "sum_rate": 255.115,
+      "rate_count": 75
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 38414,
+      "sum_loan_amount": 7086790000.0,
+      "sum_rate": 213074.971,
+      "rate_count": 34480
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "2",
+      "count": 5,
+      "sum_loan_amount": 2685000.0,
+      "sum_rate": 12.875,
+      "rate_count": 2
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 531,
+      "sum_loan_amount": 112425000.0,
+      "sum_rate": 3143.071,
+      "rate_count": 527
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 17,
+      "sum_loan_amount": 8025000.0,
+      "sum_rate": 112.625,
+      "rate_count": 17
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 34,
+      "sum_loan_amount": 2500000.0,
+      "sum_rate": 100.375,
+      "rate_count": 22
+    },
+    {
+      "action_taken": "1",
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "count": 123,
+      "sum_loan_amount": 51915000.0,
+      "sum_rate": 766.62,
+      "rate_count": 110
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 131873,
+      "sum_loan_amount": 41425045000.0,
+      "sum_rate": 971568.15588,
+      "rate_count": 124984
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 52251,
+      "sum_loan_amount": 5605975000.0,
+      "sum_rate": 421643.138,
+      "rate_count": 50316
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 39052,
+      "sum_loan_amount": 14612950000.0,
+      "sum_rate": 255057.28557,
+      "rate_count": 37036
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 46134,
+      "sum_loan_amount": 11560570000.0,
+      "sum_rate": 360004.7708,
+      "rate_count": 44645
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 66891,
+      "sum_loan_amount": 6813965000.0,
+      "sum_rate": 611601.954,
+      "rate_count": 65703
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 206,
+      "sum_loan_amount": 880120000.0,
+      "sum_rate": 1274.165,
+      "rate_count": 163
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 17472,
+      "sum_loan_amount": 5457450000.0,
+      "sum_rate": 109916.152,
+      "rate_count": 17344
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 98,
+      "sum_loan_amount": 17500000.0,
+      "sum_rate": 627.665,
+      "rate_count": 97
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 18015,
+      "sum_loan_amount": 6424015000.0,
+      "sum_rate": 112015.256,
+      "rate_count": 18002
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 8406,
+      "sum_loan_amount": 2160580000.0,
+      "sum_rate": 52175.35,
+      "rate_count": 8385
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 399,
+      "sum_loan_amount": 71095000.0,
+      "sum_rate": 2509.885,
+      "rate_count": 398
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 62,
+      "sum_loan_amount": 6790000.0,
+      "sum_rate": 422.565,
+      "rate_count": 62
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 7815,
+      "sum_loan_amount": 3191415000.0,
+      "sum_rate": 48128.134,
+      "rate_count": 7751
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 6,
+      "sum_loan_amount": 3560000.0,
+      "sum_rate": 33.865,
+      "rate_count": 6
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 22609,
+      "sum_loan_amount": 8981505000.0,
+      "sum_rate": 130289.48300000001,
+      "rate_count": 22595
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 4847,
+      "sum_loan_amount": 1700185000.0,
+      "sum_rate": 30319.699,
+      "rate_count": 4834
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 50,
+      "sum_loan_amount": 8030000.0,
+      "sum_rate": 241.115,
+      "rate_count": 50
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 1667,
+      "sum_loan_amount": 240775000.0,
+      "sum_rate": 8220.659,
+      "rate_count": 1318
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 32,
+      "sum_loan_amount": 6880000.0,
+      "sum_rate": 182.854,
+      "rate_count": 31
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 5,
+      "sum_loan_amount": 945000.0,
+      "sum_rate": 29.75,
+      "rate_count": 5
+    },
+    {
+      "action_taken": "2",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 1,
+      "sum_loan_amount": 65000.0,
+      "sum_rate": 5.25,
+      "rate_count": 1
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 475353,
+      "sum_loan_amount": 129983075000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 352681,
+      "sum_loan_amount": 42162775000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 212248,
+      "sum_loan_amount": 88666600000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 270063,
+      "sum_loan_amount": 62354225000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 414963,
+      "sum_loan_amount": 1058443115000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 947,
+      "sum_loan_amount": 359685000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 96250,
+      "sum_loan_amount": 30336030000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 1819,
+      "sum_loan_amount": 542565000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 49204,
+      "sum_loan_amount": 16253740000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 109230,
+      "sum_loan_amount": 26562800000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 8910,
+      "sum_loan_amount": 1401990000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 451,
+      "sum_loan_amount": 167665000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 30419,
+      "sum_loan_amount": 11755725000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 183,
+      "sum_loan_amount": 55795000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 26309,
+      "sum_loan_amount": 10348585000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 57035,
+      "sum_loan_amount": 19146735000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 1058,
+      "sum_loan_amount": 298150000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "count": 31,
+      "sum_loan_amount": 7025000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 5710,
+      "sum_loan_amount": 1138440000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 227,
+      "sum_loan_amount": 45515000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 27,
+      "sum_loan_amount": 6515000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 11,
+      "sum_loan_amount": 1115000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "3",
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "count": 57,
+      "sum_loan_amount": 8355000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 579678,
+      "sum_loan_amount": 257564150000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 97463,
+      "sum_loan_amount": 15552115000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 188299,
+      "sum_loan_amount": 116995905000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 214992,
+      "sum_loan_amount": 64652830000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 143859,
+      "sum_loan_amount": 24255995000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 600,
+      "sum_loan_amount": 3509870000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 141035,
+      "sum_loan_amount": 45739135000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 1903,
+      "sum_loan_amount": 1039955000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 52952,
+      "sum_loan_amount": 18311970000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 79296,
+      "sum_loan_amount": 20813590000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 7257,
+      "sum_loan_amount": 1140665000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 99,
+      "sum_loan_amount": 22015000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 85605,
+      "sum_loan_amount": 35642085000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 272,
+      "sum_loan_amount": 84900000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 43393,
+      "sum_loan_amount": 17632225000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 62483,
+      "sum_loan_amount": 21624415000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 899,
+      "sum_loan_amount": 258305000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "count": 20,
+      "sum_loan_amount": 6580000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 9459,
+      "sum_loan_amount": 1774615000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "2",
+      "count": 2,
+      "sum_loan_amount": 380000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 418,
+      "sum_loan_amount": 91890000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 15,
+      "sum_loan_amount": 3135000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 13,
+      "sum_loan_amount": 2115000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "4",
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "count": 14,
+      "sum_loan_amount": 2100000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 180856,
+      "sum_loan_amount": 50488990000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 72533,
+      "sum_loan_amount": 10438065000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 77111,
+      "sum_loan_amount": 30181645000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 86260,
+      "sum_loan_amount": 22705080000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 101947,
+      "sum_loan_amount": 14409745000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 287,
+      "sum_loan_amount": 44735000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 12410,
+      "sum_loan_amount": 3771920000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 1435,
+      "sum_loan_amount": 268505000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 37956,
+      "sum_loan_amount": 12193110000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 45181,
+      "sum_loan_amount": 11323165000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 4989,
+      "sum_loan_amount": 648545000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 39,
+      "sum_loan_amount": 5255000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 5441,
+      "sum_loan_amount": 2272245000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 123,
+      "sum_loan_amount": 33865000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 35130,
+      "sum_loan_amount": 13780230000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 31800,
+      "sum_loan_amount": 10818330000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 289,
+      "sum_loan_amount": 76555000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "count": 2,
+      "sum_loan_amount": 490000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 721,
+      "sum_loan_amount": 148605000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 442,
+      "sum_loan_amount": 90380000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 5,
+      "sum_loan_amount": 975000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "5",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 13,
+      "sum_loan_amount": 1165000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 593477,
+      "sum_loan_amount": 260000605000.0,
+      "sum_rate": 3751328.1545,
+      "rate_count": 588441
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "count": 21472,
+      "sum_loan_amount": 3058190000.0,
+      "sum_rate": 187352.266,
+      "rate_count": 21371
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "count": 98611,
+      "sum_loan_amount": 45674875000.0,
+      "sum_rate": 645263.5805,
+      "rate_count": 97905
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "count": 187885,
+      "sum_loan_amount": 59062765000.0,
+      "sum_rate": 1550077.6616,
+      "rate_count": 187261
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "count": 34622,
+      "sum_loan_amount": 3913880000.0,
+      "sum_rate": 316786.825,
+      "rate_count": 33855
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "count": 4680,
+      "sum_loan_amount": 845620000.0,
+      "sum_rate": 26638.698800000002,
+      "rate_count": 4504
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 349217,
+      "sum_loan_amount": 110412295000.0,
+      "sum_rate": 2132038.563,
+      "rate_count": 349041
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "count": 1188,
+      "sum_loan_amount": 327140000.0,
+      "sum_rate": 7320.845,
+      "rate_count": 1188
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "count": 19763,
+      "sum_loan_amount": 6586805000.0,
+      "sum_rate": 119525.283,
+      "rate_count": 19756
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "count": 40149,
+      "sum_loan_amount": 10843535000.0,
+      "sum_rate": 250115.981,
+      "rate_count": 40136
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "count": 953,
+      "sum_loan_amount": 147615000.0,
+      "sum_rate": 5780.35,
+      "rate_count": 953
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "count": 16366,
+      "sum_loan_amount": 2411340000.0,
+      "sum_rate": 62321.625,
+      "rate_count": 12096
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 147959,
+      "sum_loan_amount": 57574095000.0,
+      "sum_rate": 891767.405,
+      "rate_count": 147847
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "count": 842,
+      "sum_loan_amount": 360420000.0,
+      "sum_rate": 5111.414,
+      "rate_count": 840
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "count": 13441,
+      "sum_loan_amount": 5746295000.0,
+      "sum_rate": 75980.602,
+      "rate_count": 13393
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "count": 21249,
+      "sum_loan_amount": 7855565000.0,
+      "sum_rate": 131097.052,
+      "rate_count": 21238
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "count": 24,
+      "sum_loan_amount": 5770000.0,
+      "sum_rate": 127.24,
+      "rate_count": 24
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "count": 1909,
+      "sum_loan_amount": 272935000.0,
+      "sum_rate": 8648.93,
+      "rate_count": 1907
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 23231,
+      "sum_loan_amount": 4695405000.0,
+      "sum_rate": 141719.103,
+      "rate_count": 23057
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "count": 164,
+      "sum_loan_amount": 34330000.0,
+      "sum_rate": 976.434,
+      "rate_count": 164
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "count": 1,
+      "sum_loan_amount": 515000.0,
+      "sum_rate": 5.875,
+      "rate_count": 1
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "count": 7,
+      "sum_loan_amount": 375000.0,
+      "sum_rate": 7.375,
+      "rate_count": 2
+    },
+    {
+      "action_taken": "6",
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "count": 856,
+      "sum_loan_amount": 76600000.0,
+      "sum_rate": 3830.715,
+      "rate_count": 856
+    },
+    {
+      "action_taken": "7",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 34817,
+      "sum_loan_amount": 11955375000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "7",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 12420,
+      "sum_loan_amount": 2861480000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "7",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 2401,
+      "sum_loan_amount": 806015000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "7",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 869,
+      "sum_loan_amount": 158805000.0,
+      "sum_rate": 0,
+      "rate_count": 0
+    },
+    {
+      "action_taken": "8",
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "count": 119720,
+      "sum_loan_amount": 54121330000.0,
+      "sum_rate": 761444.499,
+      "rate_count": 114165
+    },
+    {
+      "action_taken": "8",
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "count": 20762,
+      "sum_loan_amount": 5698460000.0,
+      "sum_rate": 126277.37700000001,
+      "rate_count": 19129
+    },
+    {
+      "action_taken": "8",
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "count": 7232,
+      "sum_loan_amount": 3148940000.0,
+      "sum_rate": 40215.57,
+      "rate_count": 6300
+    },
+    {
+      "action_taken": "8",
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "count": 676,
+      "sum_loan_amount": 109690000.0,
+      "sum_rate": 3578.921,
+      "rate_count": 552
+    }
+  ],
+  "rates": [
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "4-5%",
+      "count": 47688
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "5-6%",
+      "count": 355569
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "6-7%",
+      "count": 1367214
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "7-8%",
+      "count": 428979
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "8-9%",
+      "count": 90181
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "9%+",
+      "count": 102681
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "rate_bucket": "Under 4%",
+      "count": 68727
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "4-5%",
+      "count": 27332
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "5-6%",
+      "count": 56268
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "6-7%",
+      "count": 117823
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "7-8%",
+      "count": 180394
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "8-9%",
+      "count": 100998
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "9%+",
+      "count": 80962
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "rate_bucket": "Under 4%",
+      "count": 18949
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "4-5%",
+      "count": 21391
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "5-6%",
+      "count": 191097
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "6-7%",
+      "count": 274107
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "7-8%",
+      "count": 146335
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "8-9%",
+      "count": 53017
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "9%+",
+      "count": 29555
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "rate_bucket": "Under 4%",
+      "count": 12974
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "4-5%",
+      "count": 7635
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "5-6%",
+      "count": 61225
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "6-7%",
+      "count": 213783
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "7-8%",
+      "count": 187501
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "8-9%",
+      "count": 111448
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "9%+",
+      "count": 129470
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "rate_bucket": "Under 4%",
+      "count": 1854
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "4-5%",
+      "count": 17173
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "5-6%",
+      "count": 46671
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "6-7%",
+      "count": 96203
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "7-8%",
+      "count": 149595
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "8-9%",
+      "count": 119764
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "9%+",
+      "count": 141033
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "rate_bucket": "Under 4%",
+      "count": 18309
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "4-5%",
+      "count": 27
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "5-6%",
+      "count": 99
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "6-7%",
+      "count": 262
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "7-8%",
+      "count": 326
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "8-9%",
+      "count": 87
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "9%+",
+      "count": 1262
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "rate_bucket": "Under 4%",
+      "count": 102
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "4-5%",
+      "count": 52772
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "5-6%",
+      "count": 139875
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "6-7%",
+      "count": 357348
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "7-8%",
+      "count": 62706
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "8-9%",
+      "count": 1331
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "9%+",
+      "count": 49
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "rate_bucket": "Under 4%",
+      "count": 23636
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "4-5%",
+      "count": 27
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "5-6%",
+      "count": 677
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "6-7%",
+      "count": 1578
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "7-8%",
+      "count": 375
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "8-9%",
+      "count": 66
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "9%+",
+      "count": 80
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "rate_bucket": "Under 4%",
+      "count": 2
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "4-5%",
+      "count": 2829
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "5-6%",
+      "count": 45402
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "6-7%",
+      "count": 63685
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "7-8%",
+      "count": 2145
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "8-9%",
+      "count": 19
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "9%+",
+      "count": 16
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "rate_bucket": "Under 4%",
+      "count": 190
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "4-5%",
+      "count": 2756
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "5-6%",
+      "count": 49996
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "6-7%",
+      "count": 73920
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "7-8%",
+      "count": 10960
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "8-9%",
+      "count": 21
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "9%+",
+      "count": 14
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "rate_bucket": "Under 4%",
+      "count": 41
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "4-5%",
+      "count": 222
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "5-6%",
+      "count": 1953
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "6-7%",
+      "count": 6543
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "7-8%",
+      "count": 1504
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "8-9%",
+      "count": 19
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "9%+",
+      "count": 5
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "rate_bucket": "Under 4%",
+      "count": 390
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "4-5%",
+      "count": 10
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "5-6%",
+      "count": 13
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "6-7%",
+      "count": 196
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "7-8%",
+      "count": 82
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "8-9%",
+      "count": 2
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "rate_bucket": "Under 4%",
+      "count": 36
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "4-5%",
+      "count": 21618
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "5-6%",
+      "count": 94032
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "6-7%",
+      "count": 185058
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "7-8%",
+      "count": 16976
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "8-9%",
+      "count": 165
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "9%+",
+      "count": 6
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "rate_bucket": "Under 4%",
+      "count": 12188
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "4-5%",
+      "count": 2
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "5-6%",
+      "count": 102
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "6-7%",
+      "count": 183
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "7-8%",
+      "count": 30
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "8-9%",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "rate_bucket": "9%+",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "4-5%",
+      "count": 2397
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "5-6%",
+      "count": 110082
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "6-7%",
+      "count": 33048
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "7-8%",
+      "count": 232
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "8-9%",
+      "count": 18
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "9%+",
+      "count": 2
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "rate_bucket": "Under 4%",
+      "count": 264
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "4-5%",
+      "count": 1812
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "5-6%",
+      "count": 31621
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "6-7%",
+      "count": 41681
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "7-8%",
+      "count": 8257
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "8-9%",
+      "count": 10
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "rate_bucket": "Under 4%",
+      "count": 30
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "4-5%",
+      "count": 67
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "5-6%",
+      "count": 43
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "6-7%",
+      "count": 103
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "7-8%",
+      "count": 88
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "8-9%",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "rate_bucket": "Under 4%",
+      "count": 377
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "rate_bucket": "4-5%",
+      "count": 6
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "rate_bucket": "5-6%",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "rate_bucket": "6-7%",
+      "count": 6
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "rate_bucket": "7-8%",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "rate_bucket": "Under 4%",
+      "count": 61
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "4-5%",
+      "count": 1387
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "5-6%",
+      "count": 6583
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "6-7%",
+      "count": 22888
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "7-8%",
+      "count": 2177
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "8-9%",
+      "count": 231
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "9%+",
+      "count": 16
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "rate_bucket": "Under 4%",
+      "count": 1198
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "2",
+      "rate_bucket": "6-7%",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "rate_bucket": "4-5%",
+      "count": 3
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "rate_bucket": "5-6%",
+      "count": 284
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "rate_bucket": "6-7%",
+      "count": 232
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "rate_bucket": "7-8%",
+      "count": 7
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "rate_bucket": "8-9%",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "4-5%",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "5-6%",
+      "count": 6
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "6-7%",
+      "count": 5
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "7-8%",
+      "count": 3
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "8-9%",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "rate_bucket": "9%+",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "4-5%",
+      "count": 9
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "5-6%",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "6-7%",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "7-8%",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "9%+",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "rate_bucket": "Under 4%",
+      "count": 8
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "rate_bucket": "6-7%",
+      "count": 58
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "rate_bucket": "7-8%",
+      "count": 52
+    }
+  ],
+  "denials": [
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "1",
+      "count": 149414
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "1111",
+      "count": 10565
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "2",
+      "count": 6547
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "3",
+      "count": 142052
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "4",
+      "count": 53714
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "5",
+      "count": 16928
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "6",
+      "count": 32374
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "7",
+      "count": 28792
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "8",
+      "count": 149
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "1",
+      "reason": "9",
+      "count": 34818
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "1",
+      "count": 124179
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "1111",
+      "count": 5190
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "2",
+      "count": 1594
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "3",
+      "count": 105381
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "4",
+      "count": 46419
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "5",
+      "count": 554
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "6",
+      "count": 8545
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "7",
+      "count": 31593
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "8",
+      "count": 9
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "2",
+      "reason": "9",
+      "count": 29217
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "1",
+      "count": 82655
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "1111",
+      "count": 5704
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "2",
+      "count": 1346
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "3",
+      "count": 36592
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "4",
+      "count": 30527
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "5",
+      "count": 4553
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "6",
+      "count": 7462
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "7",
+      "count": 26838
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "8",
+      "count": 38
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "31",
+      "reason": "9",
+      "count": 16533
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "1",
+      "count": 84985
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "1111",
+      "count": 5019
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "2",
+      "count": 1899
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "3",
+      "count": 42371
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "4",
+      "count": 48794
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "5",
+      "count": 4611
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "6",
+      "count": 11875
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "7",
+      "count": 50594
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "8",
+      "count": 51
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "32",
+      "reason": "9",
+      "count": 19864
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "1",
+      "count": 143393
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "1111",
+      "count": 5815
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "2",
+      "count": 2042
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "3",
+      "count": 115202
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "4",
+      "count": 48219
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "5",
+      "count": 727
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "6",
+      "count": 10201
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "7",
+      "count": 53386
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "8",
+      "count": 14
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "4",
+      "reason": "9",
+      "count": 35964
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "1",
+      "count": 175
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "1111",
+      "count": 25
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "2",
+      "count": 15
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "3",
+      "count": 161
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "4",
+      "count": 84
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "5",
+      "count": 6
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "6",
+      "count": 85
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "7",
+      "count": 68
+    },
+    {
+      "loan_type": "1",
+      "loan_purpose": "5",
+      "reason": "9",
+      "count": 328
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "1",
+      "count": 39729
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "1111",
+      "count": 325
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "2",
+      "count": 3381
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "3",
+      "count": 17130
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "4",
+      "count": 10646
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "5",
+      "count": 6902
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "6",
+      "count": 6150
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "7",
+      "count": 4962
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "8",
+      "count": 59
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "1",
+      "reason": "9",
+      "count": 6966
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "1",
+      "count": 307
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "1111",
+      "count": 9
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "2",
+      "count": 21
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "3",
+      "count": 513
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "4",
+      "count": 505
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "5",
+      "count": 51
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "6",
+      "count": 82
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "7",
+      "count": 157
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "8",
+      "count": 1
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "2",
+      "reason": "9",
+      "count": 173
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "1",
+      "count": 7043
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "1111",
+      "count": 73
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "2",
+      "count": 254
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "3",
+      "count": 8456
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "4",
+      "count": 6453
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "5",
+      "count": 7782
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "6",
+      "count": 1299
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "7",
+      "count": 11509
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "8",
+      "count": 9
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "31",
+      "reason": "9",
+      "count": 6326
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "1",
+      "count": 25763
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "1111",
+      "count": 107
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "2",
+      "count": 808
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "3",
+      "count": 24307
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "4",
+      "count": 25095
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "5",
+      "count": 2002
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "6",
+      "count": 4090
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "7",
+      "count": 21808
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "8",
+      "count": 14
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "32",
+      "reason": "9",
+      "count": 5236
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "1",
+      "count": 921
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "1111",
+      "count": 11
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "2",
+      "count": 57
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "3",
+      "count": 3272
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "4",
+      "count": 1928
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "5",
+      "count": 118
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "6",
+      "count": 852
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "7",
+      "count": 964
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "8",
+      "count": 1
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "4",
+      "reason": "9",
+      "count": 786
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "1",
+      "count": 46
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "1111",
+      "count": 1
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "2",
+      "count": 4
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "3",
+      "count": 25
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "4",
+      "count": 32
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "5",
+      "count": 4
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "6",
+      "count": 4
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "7",
+      "count": 41
+    },
+    {
+      "loan_type": "2",
+      "loan_purpose": "5",
+      "reason": "9",
+      "count": 294
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "1",
+      "count": 8886
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "1111",
+      "count": 43
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "2",
+      "count": 836
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "3",
+      "count": 6994
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "4",
+      "count": 3262
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "5",
+      "count": 1532
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "6",
+      "count": 1535
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "7",
+      "count": 4278
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "8",
+      "count": 27
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "1",
+      "reason": "9",
+      "count": 3026
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "1",
+      "count": 26
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "2",
+      "count": 1
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "3",
+      "count": 74
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "4",
+      "count": 34
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "6",
+      "count": 4
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "7",
+      "count": 12
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "2",
+      "reason": "9",
+      "count": 32
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "1",
+      "count": 423
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "1111",
+      "count": 10
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "2",
+      "count": 21
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "3",
+      "count": 6310
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "4",
+      "count": 1045
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "5",
+      "count": 265
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "6",
+      "count": 685
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "7",
+      "count": 6504
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "8",
+      "count": 15
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "31",
+      "reason": "9",
+      "count": 11031
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "1",
+      "count": 10230
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "1111",
+      "count": 20
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "2",
+      "count": 264
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "3",
+      "count": 22951
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "4",
+      "count": 9143
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "5",
+      "count": 1069
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "6",
+      "count": 1247
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "7",
+      "count": 7988
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "8",
+      "count": 8
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "32",
+      "reason": "9",
+      "count": 4115
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "1",
+      "count": 124
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "1111",
+      "count": 2
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "2",
+      "count": 4
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "3",
+      "count": 490
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "4",
+      "count": 48
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "5",
+      "count": 5
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "6",
+      "count": 25
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "7",
+      "count": 87
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "4",
+      "reason": "9",
+      "count": 273
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "reason": "1",
+      "count": 5
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "reason": "3",
+      "count": 3
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "reason": "7",
+      "count": 2
+    },
+    {
+      "loan_type": "3",
+      "loan_purpose": "5",
+      "reason": "9",
+      "count": 21
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "1",
+      "count": 1765
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "1111",
+      "count": 179
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "2",
+      "count": 211
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "3",
+      "count": 977
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "4",
+      "count": 674
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "5",
+      "count": 197
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "6",
+      "count": 306
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "7",
+      "count": 384
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "8",
+      "count": 15
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "1",
+      "reason": "9",
+      "count": 1002
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "1",
+      "count": 17
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "1111",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "2",
+      "count": 3
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "3",
+      "count": 48
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "4",
+      "count": 12
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "5",
+      "count": 4
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "6",
+      "count": 14
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "7",
+      "count": 71
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "31",
+      "reason": "9",
+      "count": 56
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "1",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "1111",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "3",
+      "count": 7
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "4",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "7",
+      "count": 11
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "32",
+      "reason": "9",
+      "count": 4
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "reason": "1",
+      "count": 3
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "reason": "3",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "4",
+      "reason": "9",
+      "count": 7
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "1",
+      "count": 4
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "2",
+      "count": 2
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "3",
+      "count": 3
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "4",
+      "count": 14
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "5",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "6",
+      "count": 1
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "7",
+      "count": 10
+    },
+    {
+      "loan_type": "4",
+      "loan_purpose": "5",
+      "reason": "9",
+      "count": 22
+    }
+  ]
+}
