@@ -42,12 +42,27 @@ let filters = {
 
 /* ---- Data loading ---- */
 async function loadData() {
-  const [cube, geographic] = await Promise.all([
+  const [cube, geographic, lenders] = await Promise.all([
     fetch("data/cube.json").then(r => r.json()),
     fetch("data/geographic.json").then(r => r.json()),
+    fetch("data/lenders.json").then(r => r.json()),
   ]);
-  data = { cube, geographic };
+  data = { cube, geographic, lenders };
+
+  // Build a lender lookup index for fast filtering
+  data.lenderIndex = buildLenderIndex(lenders);
+
   renderAll();
+}
+
+function buildLenderIndex(lenders) {
+  // Group compact cube rows by LEI for fast aggregation
+  const byLei = {};
+  for (const r of lenders.cube) {
+    if (!byLei[r.l]) byLei[r.l] = [];
+    byLei[r.l].push(r);
+  }
+  return byLei;
 }
 
 /* ---- Filtering engine ---- */
@@ -105,6 +120,11 @@ const fmt = {
   billions: n => n == null ? "—" : "$" + n.toFixed(1) + "B",
   rate: n => n == null ? "—" : n.toFixed(3) + "%",
 };
+
+function onFilterChange() {
+  renderNational();
+  renderLenders();
+}
 
 /* ---- Navigation ---- */
 function initNav() {
@@ -173,7 +193,7 @@ function renderFilterBar() {
     btn.addEventListener("click", () => {
       const key = btn.parentElement.dataset.key;
       filters[key] = null;
-      renderNational();
+      onFilterChange();
     });
   });
   el.querySelector(".filter-clear").addEventListener("click", () => {
@@ -185,6 +205,7 @@ function renderFilterBar() {
 /* ---- Render functions ---- */
 function renderAll() {
   renderNational();
+  renderLenders();
   renderGeographic();
 }
 
@@ -287,6 +308,153 @@ function renderNational() {
     denialEntries.map(e => e[0]),
     denialEntries.map(e => e[1]),
     "Top Denial Reasons"
+  );
+}
+
+/* ---- Lender aggregation from compact cube ---- */
+function aggregateLenderRows(rows) {
+  let count = 0, sumLoan = 0, sumRate = 0, rateCount = 0;
+  let originated = 0, denied = 0, origLoan = 0, origRate = 0, origRateCount = 0;
+  for (const r of rows) {
+    count += r.c;
+    sumLoan += r.s;
+    if (r.a === "1") {
+      originated += r.c;
+      origLoan += r.s;
+      origRate += r.r;
+      origRateCount += r.rc;
+    }
+    if (r.a === "3") denied += r.c;
+  }
+  return {
+    apps: count, originated, denied,
+    sumLoan: origLoan,
+    avgLoan: count ? sumLoan / count : null,
+    avgRate: origRateCount ? origRate / origRateCount : null,
+    origPct: count ? originated / count * 100 : null,
+    denyPct: count ? denied / count * 100 : null,
+  };
+}
+
+function renderLenders() {
+  if (!data.lenders) return;
+
+  const names = data.lenders.names;
+  const statesMap = data.lenders.states;
+  const index = data.lenderIndex;
+
+  // Build filter description for title
+  const filterParts = [];
+  if (filters.action != null) filterParts.push(ACTION_LABELS[filters.action]);
+  if (filters.loanType != null) filterParts.push(LOAN_TYPE_LABELS[filters.loanType]);
+  if (filters.loanPurpose != null) filterParts.push(LOAN_PURPOSE_LABELS[filters.loanPurpose]);
+
+  const titleEl = document.getElementById("lender-table-title");
+  titleEl.textContent = filterParts.length
+    ? `Lenders — ${filterParts.join(" + ")}`
+    : "Top Lenders";
+
+  // Filter chips on lender page
+  const filterEl = document.getElementById("lender-filters");
+  if (filterParts.length === 0) {
+    filterEl.innerHTML = '<span class="filter-hint">Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.</span>';
+  } else {
+    const chips = [];
+    if (filters.action != null) chips.push({key: "action", label: ACTION_LABELS[filters.action]});
+    if (filters.loanType != null) chips.push({key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType]});
+    if (filters.loanPurpose != null) chips.push({key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose]});
+    filterEl.innerHTML = chips.map(c => `
+      <span class="filter-chip" data-key="${c.key}">${c.label} <button>&times;</button></span>
+    `).join("") + '<button class="filter-clear">Clear all</button>';
+    filterEl.querySelectorAll(".filter-chip button").forEach(btn => {
+      btn.addEventListener("click", () => { filters[btn.parentElement.dataset.key] = null; onFilterChange(); });
+    });
+    filterEl.querySelector(".filter-clear").addEventListener("click", () => {
+      filters = { action: null, loanType: null, loanPurpose: null };
+      onFilterChange();
+    });
+  }
+
+  // Aggregate per lender with current filters
+  const lenderStats = [];
+  for (const [lei, rows] of Object.entries(index)) {
+    const filtered = rows.filter(r =>
+      (filters.action == null || r.a === filters.action) &&
+      (filters.loanType == null || r.t === filters.loanType) &&
+      (filters.loanPurpose == null || r.p === filters.loanPurpose)
+    );
+    if (filtered.length === 0) continue;
+
+    const agg = aggregateLenderRows(filtered);
+    const name = names[lei] || lei;
+    const topStates = (statesMap[lei] || []).map(s => s.state).join(", ");
+
+    lenderStats.push({ lei, name, topStates, ...agg });
+  }
+
+  // Sort by apps desc
+  lenderStats.sort((a, b) => b.apps - a.apps);
+
+  // Summary cards
+  const totalLenders = lenderStats.length;
+  const totalApps = lenderStats.reduce((s, l) => s + l.apps, 0);
+  const totalOrig = lenderStats.reduce((s, l) => s + l.originated, 0);
+  const totalVol = lenderStats.reduce((s, l) => s + l.sumLoan, 0);
+
+  document.getElementById("lender-summary").innerHTML = `
+    <div class="stat-card"><div class="label">Active Lenders</div><div class="value">${fmt.num(totalLenders)}</div></div>
+    <div class="stat-card"><div class="label">Applications</div><div class="value">${fmt.num(totalApps)}</div></div>
+    <div class="stat-card"><div class="label">Originated</div><div class="value">${fmt.num(totalOrig)}</div></div>
+    <div class="stat-card"><div class="label">Total Volume</div><div class="value">${fmt.billions(totalVol / 1e9)}</div></div>
+  `;
+
+  // Lender table with search
+  const lenderFilterInput = document.getElementById("lender-filter");
+  function renderLenderTable(search = "") {
+    const filtered = search
+      ? lenderStats.filter(l => l.name.toLowerCase().includes(search))
+      : lenderStats.slice(0, 100);
+
+    document.getElementById("table-lenders").querySelector("tbody").innerHTML = filtered.map(l => `
+      <tr>
+        <td title="${l.lei}">${l.name}</td>
+        <td class="num" data-sort="${l.apps}">${fmt.num(l.apps)}</td>
+        <td class="num" data-sort="${l.originated}">${fmt.num(l.originated)}</td>
+        <td class="num" data-sort="${l.denied}">${fmt.num(l.denied)}</td>
+        <td class="num" data-sort="${l.origPct}">${fmt.pct(l.origPct)}</td>
+        <td class="num" data-sort="${l.denyPct}">${fmt.pct(l.denyPct)}</td>
+        <td class="num" data-sort="${l.sumLoan}">${fmt.billions(l.sumLoan / 1e9)}</td>
+        <td class="num" data-sort="${l.avgLoan}">${fmt.dollar(l.avgLoan)}</td>
+        <td class="num" data-sort="${l.avgRate}">${l.avgRate ? fmt.rate(l.avgRate) : "—"}</td>
+        <td style="font-size:0.8rem;color:var(--text-secondary)">${l.topStates}</td>
+      </tr>
+    `).join("");
+    makeSortable(document.getElementById("table-lenders"));
+  }
+
+  renderLenderTable();
+  // Remove old listener by replacing the input element
+  const newInput = lenderFilterInput.cloneNode(true);
+  lenderFilterInput.parentNode.replaceChild(newInput, lenderFilterInput);
+  newInput.addEventListener("input", e => renderLenderTable(e.target.value.toLowerCase()));
+
+  // Charts — top 15 by originations
+  const top15Vol = lenderStats.filter(l => l.originated > 0).slice(0, 15);
+  renderHBar("chart-lender-vol",
+    top15Vol.map(l => l.name.length > 30 ? l.name.slice(0, 28) + "…" : l.name),
+    top15Vol.map(l => l.originated),
+    "Top 15 by Originations"
+  );
+
+  // Top 15 highest denial rate (min 1000 apps)
+  const highDenial = lenderStats
+    .filter(l => l.apps >= 1000 && l.denyPct != null)
+    .sort((a, b) => b.denyPct - a.denyPct)
+    .slice(0, 15);
+  renderHBar("chart-lender-denial",
+    highDenial.map(l => l.name.length > 30 ? l.name.slice(0, 28) + "…" : l.name),
+    highDenial.map(l => l.denyPct),
+    "Highest Denial Rates (min 1,000 apps)"
   );
 }
 
@@ -409,7 +577,7 @@ function renderFilterDonut(canvasId, labels, values, codes, title, filterKey, ac
         } else {
           filters[filterKey] = clickedCode;
         }
-        renderNational();
+        onFilterChange();
       },
       onHover: (evt, elements) => {
         evt.native.target.style.cursor = elements.length ? "pointer" : "default";

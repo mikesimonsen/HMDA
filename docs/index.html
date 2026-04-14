@@ -16,6 +16,7 @@
 
 <nav>
   <a href="#" data-section="sec-national" class="active">National Overview</a>
+  <a href="#" data-section="sec-lenders">Lenders</a>
   <a href="#" data-section="sec-geographic">Geographic Analysis</a>
   <a href="#" data-section="sec-counties">Top Counties</a>
 </nav>
@@ -68,6 +69,55 @@
       <div class="card">
         <h2>Top Denial Reasons</h2>
         <div class="chart-container tall"><canvas id="chart-denials"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LENDERS ============ -->
+  <div id="sec-lenders" class="section">
+
+    <div id="lender-filters" class="active-filters">
+      <span class="filter-hint">Filters from the Overview page apply here. Click chart segments on the Overview tab to filter.</span>
+    </div>
+
+    <div id="lender-summary" class="stats-grid">
+      <div class="stat-card"><div class="label">Loading lender data...</div></div>
+    </div>
+
+    <div class="card">
+      <h2 id="lender-table-title">Top Lenders</h2>
+      <div class="filter-bar">
+        <input type="text" id="lender-filter" placeholder="Search by lender name...">
+      </div>
+      <div style="overflow-x: auto;">
+        <table id="table-lenders">
+          <thead>
+            <tr>
+              <th>Lender</th>
+              <th class="num">Applications</th>
+              <th class="num">Originated</th>
+              <th class="num">Denied</th>
+              <th class="num">Orig %</th>
+              <th class="num">Deny %</th>
+              <th class="num">Volume</th>
+              <th class="num">Avg Loan</th>
+              <th class="num">Avg Rate</th>
+              <th>Top States</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="10" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Top 15 by Originations</h2>
+        <div class="chart-container tall"><canvas id="chart-lender-vol"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Highest Denial Rates (min 1,000 apps)</h2>
+        <div class="chart-container tall"><canvas id="chart-lender-denial"></canvas></div>
       </div>
     </div>
   </div>

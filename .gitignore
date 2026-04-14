@@ -8,5 +8,8 @@ hmda.db
 __pycache__/
 *.pyc
 
+# Cached API data
+analysis/filer_cache.json
+
 # OS
 .DS_Store

@@ -9,16 +9,20 @@ import time
 # Add project root to path so we can import as a package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from analysis import national, geographic, cube
+from analysis import national, geographic, cube, lenders
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "docs", "data")
 
 
-def write_json(filename, data):
+def write_json(filename, data, compact=False):
     path = os.path.join(OUTPUT_DIR, filename)
     with open(path, "w") as f:
-        json.dump(data, f, indent=2)
-    print(f"  Wrote {path}")
+        if compact:
+            json.dump(data, f, separators=(",", ":"))
+        else:
+            json.dump(data, f, indent=2)
+    size_mb = os.path.getsize(path) / 1e6
+    print(f"  Wrote {path} ({size_mb:.1f}MB)")
 
 
 def main():
@@ -34,6 +38,9 @@ def main():
 
     print("Running cube analysis...")
     write_json("cube.json", cube.generate())
+
+    print("Running lender analysis...")
+    write_json("lenders.json", lenders.generate(), compact=True)
 
     elapsed = time.time() - t0
     print(f"\nAll analyses complete in {elapsed:.1f}s")
