@@ -552,15 +552,27 @@ function renderGeographic() {
   renderHBar("chart-rate-rank", byRate.map(s => s.state), byRate.map(s => s.avgRate), "Highest Avg Interest Rates (%)");
 
   // --- Aggregate counties from cube ---
+  // FHA % ignores the loan-type filter so it always reflects FHA share of
+  // the county's originated loans under the other active filters.
   const countyStats = [];
   for (const [fips, rows] of Object.entries(data.countyIndex)) {
     const filtered = filterCompact(rows);
     if (filtered.length === 0) continue;
     const agg = aggregateCompact(filtered);
-    // Get state from first row
+
+    let fhaOrig = 0, allOrig = 0;
+    for (const r of rows) {
+      if (filters.year != null && r.y !== filters.year) continue;
+      if (filters.loanPurpose != null && r.p !== filters.loanPurpose) continue;
+      if (r.a !== "1") continue;
+      allOrig += r.c;
+      if (r.t === "2") fhaOrig += r.c;
+    }
+    const fhaPct = allOrig ? fhaOrig / allOrig * 100 : null;
+
     const state = rows[0].state;
     const name = countyNames[fips] || "Unknown";
-    countyStats.push({ fips, state, name, ...agg });
+    countyStats.push({ fips, state, name, fhaPct, ...agg });
   }
   countyStats.sort((a, b) => b.apps - a.apps);
 
@@ -574,6 +586,7 @@ function renderGeographic() {
       <td class="num" data-sort="${c.sumLoan}">${fmt.billions(c.sumLoan / 1e9)}</td>
       <td class="num" data-sort="${c.origPct}">${fmt.pct(c.origPct)}</td>
       <td class="num" data-sort="${c.denyPct}">${fmt.pct(c.denyPct)}</td>
+      <td class="num" data-sort="${c.fhaPct ?? -1}">${c.fhaPct != null ? fmt.pct(c.fhaPct) : "—"}</td>
       <td class="num" data-sort="${c.avgLoan}">${fmt.dollar(c.avgLoan)}</td>
     </tr>
   `).join("");
