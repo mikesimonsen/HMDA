@@ -19,6 +19,7 @@
   <a href="#" data-section="sec-lenders">Lenders</a>
   <a href="#" data-section="sec-geographic">Geographic Analysis</a>
   <a href="#" data-section="sec-counties">Top Counties</a>
+  <a href="#" data-section="sec-compare">Compare States</a>
 </nav>
 
 <main>
@@ -39,10 +40,12 @@
     <div class="two-col">
       <div class="card">
         <h2>Volume Trends</h2>
+        <p class="chart-click-hint">Click a data point to filter by year</p>
         <div class="chart-container"><canvas id="chart-timeseries"></canvas></div>
       </div>
       <div class="card">
         <h2>Rate Trends</h2>
+        <p class="chart-click-hint">Click a data point to filter by year</p>
         <div class="chart-container"><canvas id="chart-rate-trend"></canvas></div>
       </div>
     </div>
@@ -50,6 +53,7 @@
     <div class="two-col">
       <div class="card">
         <h2>Application Outcomes</h2>
+        <p class="chart-click-hint">Click a segment to filter all data</p>
         <div class="chart-container"><canvas id="chart-action"></canvas></div>
       </div>
       <div class="card">
@@ -66,10 +70,12 @@
     <div class="two-col">
       <div class="card">
         <h2>Loan Type</h2>
+        <p class="chart-click-hint">Click a segment to filter all data</p>
         <div class="chart-container"><canvas id="chart-loan-type"></canvas></div>
       </div>
       <div class="card">
         <h2>Loan Purpose</h2>
+        <p class="chart-click-hint">Click a segment to filter all data</p>
         <div class="chart-container"><canvas id="chart-loan-purpose"></canvas></div>
       </div>
     </div>
@@ -203,6 +209,87 @@
             </tr>
           </thead>
           <tbody><tr><td colspan="8" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ COMPARE STATES ============ -->
+  <div id="sec-compare" class="section">
+
+    <div class="card">
+      <h2>Compare States Over Time</h2>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1rem;">
+        Select states and a metric to build a time series comparison chart. Download the data as CSV for use in other tools.
+      </p>
+
+      <div class="compare-controls">
+        <div class="compare-control-group">
+          <label>Metric</label>
+          <select id="compare-metric">
+            <option value="originations">Originations (count)</option>
+            <option value="applications">Applications (count)</option>
+            <option value="volume">Origination Volume ($)</option>
+            <option value="avgLoan">Avg Loan Amount ($)</option>
+            <option value="avgRate">Avg Interest Rate (%)</option>
+            <option value="origPct">Origination Rate (%)</option>
+            <option value="denyPct">Denial Rate (%)</option>
+          </select>
+        </div>
+        <div class="compare-control-group">
+          <label>Loan Type</label>
+          <select id="compare-loan-type">
+            <option value="">All Types</option>
+            <option value="1">Conventional</option>
+            <option value="2">FHA</option>
+            <option value="3">VA</option>
+            <option value="4">USDA/RHS</option>
+          </select>
+        </div>
+        <div class="compare-control-group">
+          <label>Loan Purpose</label>
+          <select id="compare-loan-purpose">
+            <option value="">All Purposes</option>
+            <option value="1">Purchase</option>
+            <option value="2">Home Improvement</option>
+            <option value="31">Refinance</option>
+            <option value="32">Cash-out Refinance</option>
+            <option value="4">Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="compare-state-picker">
+        <label>States</label>
+        <div class="compare-state-search-wrap">
+          <input type="text" id="compare-state-search" placeholder="Type to search states...">
+          <div id="compare-state-dropdown" class="compare-dropdown"></div>
+        </div>
+        <div id="compare-selected-states" class="compare-selected-tags"></div>
+        <div class="compare-quick-picks">
+          <button class="compare-quick-btn" data-states="CA,TX,FL,NY,IL">Top 5 by Pop</button>
+          <button class="compare-quick-btn" data-states="CA,HI,WA,NY,MA">High Cost</button>
+          <button class="compare-quick-btn" data-states="MS,WV,AR,AL,LA">Southeast</button>
+          <button class="compare-quick-btn" data-states="AZ,NV,ID,UT,TX">Sun Belt</button>
+          <button class="compare-quick-btn" data-clear="true">Clear All</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="compare-chart-card" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <h2 id="compare-chart-title" style="border:none; margin:0; padding:0;">Time Series Comparison</h2>
+        <button id="compare-download-csv" class="compare-csv-btn">Download CSV</button>
+      </div>
+      <div class="chart-container tall"><canvas id="chart-compare"></canvas></div>
+    </div>
+
+    <div class="card" id="compare-table-card" style="display:none;">
+      <h2 id="compare-table-title">Data Table</h2>
+      <div style="overflow-x: auto;">
+        <table id="table-compare">
+          <thead></thead>
+          <tbody></tbody>
         </table>
       </div>
     </div>

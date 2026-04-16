@@ -750,8 +750,331 @@ function renderYearSelector(years) {
   });
 }
 
+/* ---- Compare States ---- */
+let compareState = {
+  selectedStates: [],
+  metric: "originations",
+  loanType: null,
+  loanPurpose: null,
+  lastData: null, // { years, series: [{state, values}] }
+};
+
+const COMPARE_COLORS = [
+  "#2563eb","#dc2626","#16a34a","#ea580c","#9333ea",
+  "#0891b2","#ca8a04","#be185d","#4f46e5","#059669",
+  "#6366f1","#d97706","#0d9488","#e11d48","#7c3aed",
+  "#2dd4bf","#f59e0b","#ec4899","#8b5cf6","#14b8a6"
+];
+
+const METRIC_LABELS = {
+  originations: "Originations",
+  applications: "Applications",
+  volume: "Origination Volume ($)",
+  avgLoan: "Avg Loan Amount ($)",
+  avgRate: "Avg Interest Rate (%)",
+  origPct: "Origination Rate (%)",
+  denyPct: "Denial Rate (%)",
+};
+
+function initCompare() {
+  const metricEl = document.getElementById("compare-metric");
+  const loanTypeEl = document.getElementById("compare-loan-type");
+  const loanPurposeEl = document.getElementById("compare-loan-purpose");
+  const searchEl = document.getElementById("compare-state-search");
+  const dropdownEl = document.getElementById("compare-state-dropdown");
+
+  metricEl.addEventListener("change", () => {
+    compareState.metric = metricEl.value;
+    renderCompareChart();
+  });
+
+  loanTypeEl.addEventListener("change", () => {
+    compareState.loanType = loanTypeEl.value || null;
+    renderCompareChart();
+  });
+
+  loanPurposeEl.addEventListener("change", () => {
+    compareState.loanPurpose = loanPurposeEl.value || null;
+    renderCompareChart();
+  });
+
+  // State search + dropdown
+  searchEl.addEventListener("focus", () => showStateDropdown(searchEl.value));
+  searchEl.addEventListener("input", () => showStateDropdown(searchEl.value));
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".compare-state-search-wrap")) {
+      dropdownEl.style.display = "none";
+    }
+  });
+
+  // Quick pick buttons
+  document.querySelectorAll(".compare-quick-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.clear) {
+        compareState.selectedStates = [];
+      } else {
+        const states = btn.dataset.states.split(",");
+        compareState.selectedStates = [...states];
+      }
+      renderSelectedTags();
+      renderCompareChart();
+    });
+  });
+
+  // CSV download
+  document.getElementById("compare-download-csv").addEventListener("click", downloadCompareCSV);
+}
+
+function showStateDropdown(search) {
+  const dropdownEl = document.getElementById("compare-state-dropdown");
+  const term = (search || "").toLowerCase();
+
+  const states = Object.entries(STATE_NAMES)
+    .filter(([code, name]) =>
+      !term || code.toLowerCase().includes(term) || name.toLowerCase().includes(term)
+    )
+    .sort((a, b) => a[1].localeCompare(b[1]));
+
+  if (states.length === 0) {
+    dropdownEl.style.display = "none";
+    return;
+  }
+
+  dropdownEl.innerHTML = states.map(([code, name]) => {
+    const selected = compareState.selectedStates.includes(code);
+    return `<div class="compare-dropdown-item${selected ? " selected" : ""}" data-code="${code}">
+      <span>${code} — ${name}</span>
+      <span>${selected ? "&#10003;" : ""}</span>
+    </div>`;
+  }).join("");
+
+  dropdownEl.style.display = "block";
+
+  dropdownEl.querySelectorAll(".compare-dropdown-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const code = item.dataset.code;
+      const idx = compareState.selectedStates.indexOf(code);
+      if (idx >= 0) {
+        compareState.selectedStates.splice(idx, 1);
+      } else {
+        compareState.selectedStates.push(code);
+      }
+      renderSelectedTags();
+      renderCompareChart();
+      // Refresh dropdown to show updated checkmarks
+      showStateDropdown(document.getElementById("compare-state-search").value);
+    });
+  });
+}
+
+function renderSelectedTags() {
+  const el = document.getElementById("compare-selected-states");
+  el.innerHTML = compareState.selectedStates.map((code, i) =>
+    `<span class="compare-tag" style="background:${COMPARE_COLORS[i % COMPARE_COLORS.length]}">${code} <button data-code="${code}">&times;</button></span>`
+  ).join("");
+
+  el.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      compareState.selectedStates = compareState.selectedStates.filter(c => c !== btn.dataset.code);
+      renderSelectedTags();
+      renderCompareChart();
+    });
+  });
+}
+
+function computeCompareData() {
+  if (!data.stateIndex || compareState.selectedStates.length === 0) return null;
+
+  const metric = compareState.metric;
+  const allYears = new Set();
+  const series = [];
+
+  for (const stateCode of compareState.selectedStates) {
+    const rows = data.stateIndex[stateCode];
+    if (!rows) continue;
+
+    // Filter by loan type and purpose
+    const filtered = rows.filter(r =>
+      (compareState.loanType == null || r.t === compareState.loanType) &&
+      (compareState.loanPurpose == null || r.p === compareState.loanPurpose)
+    );
+
+    // Group by year
+    const byYear = {};
+    for (const r of filtered) {
+      if (!byYear[r.y]) byYear[r.y] = [];
+      byYear[r.y].push(r);
+      allYears.add(r.y);
+    }
+
+    // Compute metric per year
+    const values = {};
+    for (const [year, yearRows] of Object.entries(byYear)) {
+      const agg = aggregateCompact(yearRows);
+      switch (metric) {
+        case "originations": values[year] = agg.originated; break;
+        case "applications": values[year] = agg.apps; break;
+        case "volume": values[year] = agg.sumLoan; break;
+        case "avgLoan": values[year] = agg.avgLoan; break;
+        case "avgRate": values[year] = agg.avgRate; break;
+        case "origPct": values[year] = agg.origPct; break;
+        case "denyPct": values[year] = agg.denyPct; break;
+      }
+    }
+
+    series.push({ state: stateCode, values });
+  }
+
+  const years = Array.from(allYears).sort();
+  return { years, series };
+}
+
+function renderCompareChart() {
+  const chartCard = document.getElementById("compare-chart-card");
+  const tableCard = document.getElementById("compare-table-card");
+
+  if (compareState.selectedStates.length === 0) {
+    chartCard.style.display = "none";
+    tableCard.style.display = "none";
+    compareState.lastData = null;
+    return;
+  }
+
+  const result = computeCompareData();
+  if (!result || result.series.length === 0) {
+    chartCard.style.display = "none";
+    tableCard.style.display = "none";
+    return;
+  }
+
+  compareState.lastData = result;
+  chartCard.style.display = "block";
+  tableCard.style.display = "block";
+
+  const metric = compareState.metric;
+  const metricLabel = METRIC_LABELS[metric];
+
+  // Filter description
+  const parts = [metricLabel];
+  if (compareState.loanType) parts.push(LOAN_TYPE_LABELS[compareState.loanType]);
+  if (compareState.loanPurpose) parts.push(LOAN_PURPOSE_LABELS[compareState.loanPurpose]);
+  const title = parts.join(" — ");
+
+  document.getElementById("compare-chart-title").textContent = title;
+  document.getElementById("compare-table-title").textContent = title;
+
+  // Format helper for this metric
+  const fmtMetric = v => {
+    if (v == null) return "—";
+    if (metric === "volume") return fmt.billions(v / 1e9);
+    if (metric === "avgLoan") return fmt.dollar(v);
+    if (metric === "avgRate") return fmt.rate(v);
+    if (metric === "origPct" || metric === "denyPct") return fmt.pct(v);
+    return fmt.num(v);
+  };
+
+  // Chart
+  destroyChart("chart-compare");
+  const ctx = document.getElementById("chart-compare").getContext("2d");
+  const datasets = result.series.map((s, i) => ({
+    label: `${s.state} — ${STATE_NAMES[s.state] || s.state}`,
+    data: result.years.map(y => s.values[y] ?? null),
+    borderColor: COMPARE_COLORS[i % COMPARE_COLORS.length],
+    backgroundColor: COMPARE_COLORS[i % COMPARE_COLORS.length] + "22",
+    fill: false,
+    tension: 0.2,
+    pointRadius: 5,
+    pointHoverRadius: 7,
+    borderWidth: 2.5,
+    spanGaps: true,
+  }));
+
+  const isDollar = metric === "volume" || metric === "avgLoan";
+  const isPct = metric === "avgRate" || metric === "origPct" || metric === "denyPct";
+
+  charts["chart-compare"] = new Chart(ctx, {
+    type: "line",
+    data: { labels: result.years, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        title: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${fmtMetric(ctx.raw)}`
+          }
+        },
+        legend: {
+          position: "top",
+          labels: { boxWidth: 14, padding: 16, font: { size: 12 } }
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            callback: v => {
+              if (isDollar && v >= 1e9) return "$" + (v / 1e9).toFixed(0) + "B";
+              if (isDollar) return fmt.dollar(v);
+              if (isPct) return v.toFixed(1) + "%";
+              return fmt.num(v);
+            }
+          }
+        }
+      }
+    }
+  });
+
+  // Data table
+  const thead = document.querySelector("#table-compare thead");
+  const tbody = document.querySelector("#table-compare tbody");
+
+  thead.innerHTML = `<tr><th>Year</th>${result.series.map(s => `<th class="num">${s.state}</th>`).join("")}</tr>`;
+  tbody.innerHTML = result.years.map(y =>
+    `<tr><td>${y}</td>${result.series.map(s =>
+      `<td class="num" data-sort="${s.values[y] ?? ""}">${fmtMetric(s.values[y])}</td>`
+    ).join("")}</tr>`
+  ).join("");
+  makeSortable(document.getElementById("table-compare"));
+}
+
+function downloadCompareCSV() {
+  const result = compareState.lastData;
+  if (!result) return;
+
+  const metric = compareState.metric;
+  const metricLabel = METRIC_LABELS[metric];
+
+  // Header row
+  const headers = ["Year", ...result.series.map(s => `${s.state} - ${STATE_NAMES[s.state] || s.state}`)];
+  const rows = [headers.join(",")];
+
+  // Data rows
+  for (const y of result.years) {
+    const vals = result.series.map(s => {
+      const v = s.values[y];
+      return v != null ? v : "";
+    });
+    rows.push([y, ...vals].join(","));
+  }
+
+  const csv = rows.join("\n");
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+
+  // Build filename
+  const states = result.series.map(s => s.state).join("-");
+  a.download = `hmda_${metric}_${states}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
 /* ---- Init ---- */
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
-  loadData();
+  loadData().then(() => initCompare());
 });
