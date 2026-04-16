@@ -69,7 +69,6 @@ def county_cube(top_n=200):
         SELECT
             activity_year as y,
             county_code as fips,
-            state_code as state,
             action_taken as a,
             loan_type as t,
             loan_purpose as p,
@@ -87,27 +86,14 @@ def county_cube(top_n=200):
             ORDER BY COUNT(*) DESC
             LIMIT ?
         )
-        GROUP BY activity_year, county_code, state_code, action_taken, loan_type, loan_purpose
+        GROUP BY activity_year, county_code, action_taken, loan_type, loan_purpose
     """, [top_n])
 
-    # Fix state from FIPS and merge rows that were split by NA vs real state
-    merged = {}
+    # Derive state from FIPS code (first 2 digits), never trust state_code
     for row in rows:
-        state = row["state"]
-        if state in ("", "NA"):
-            state = fips_to_state.get(row["fips"][:2], "")
-        key = (row["y"], row["fips"], state, row["a"], row["t"], row["p"])
-        if key in merged:
-            m = merged[key]
-            m["c"] += row["c"]
-            m["s"] += row["s"]
-            m["r"] += row["r"]
-            m["rc"] += row["rc"]
-        else:
-            row["state"] = state
-            merged[key] = row
+        row["state"] = fips_to_state.get(row["fips"][:2], "")
 
-    result = list(merged.values())
+    result = rows
     for row in result:
         row["s"] = round(row["s"])
         row["r"] = round(row["r"], 2)
