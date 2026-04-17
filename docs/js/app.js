@@ -1266,8 +1266,72 @@ function downloadCompareCSV() {
   URL.revokeObjectURL(url);
 }
 
+/* ---- Per-chart CSV download ----
+ * Reads straight from the live Chart.js instance so the CSV reflects whatever
+ * the user currently sees (filters applied, category ordering, etc).
+ */
+function csvEscape(v) {
+  if (v == null) return "";
+  const s = String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadChartCSV(chartId, title) {
+  const chart = charts[chartId];
+  if (!chart) return;
+  const labels = chart.data.labels || [];
+  const datasets = chart.data.datasets || [];
+  if (!labels.length || !datasets.length) return;
+
+  const singleUnlabeled = datasets.length === 1 && !datasets[0].label;
+  const valueCols = singleUnlabeled
+    ? [title || "Value"]
+    : datasets.map((ds, i) => ds.label || `Series ${i + 1}`);
+
+  const lines = [["Category", ...valueCols].map(csvEscape).join(",")];
+  for (let i = 0; i < labels.length; i++) {
+    const row = [labels[i], ...datasets.map(ds => ds.data[i] ?? "")];
+    lines.push(row.map(csvEscape).join(","));
+  }
+
+  const slug = (title || chartId).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `hmda_${slug || "chart"}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function attachCsvButtons() {
+  document.querySelectorAll(".card").forEach(card => {
+    const canvas = card.querySelector("canvas");
+    if (!canvas) return;
+    if (card.querySelector(".chart-csv-btn, .compare-csv-btn")) return;
+    const h2 = card.querySelector("h2");
+    if (!h2) return;
+
+    const title = h2.textContent.trim();
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "chart-csv-btn";
+    btn.textContent = "CSV";
+    btn.title = "Download chart data as CSV";
+    btn.addEventListener("click", () => downloadChartCSV(canvas.id, title));
+
+    h2.classList.add("has-csv-btn");
+    h2.appendChild(btn);
+  });
+}
+
 /* ---- Init ---- */
 document.addEventListener("DOMContentLoaded", () => {
   initNav();
-  loadData().then(() => initCompare());
+  loadData().then(() => {
+    initCompare();
+    attachCsvButtons();
+  });
 });

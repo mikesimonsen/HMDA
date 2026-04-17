@@ -506,3 +506,29 @@ tr:hover td { background: var(--accent-light); }
   background: var(--accent);
   color: #fff;
 }
+
+/* Per-chart CSV download button (auto-injected into each chart card's h2) */
+.chart-csv-btn {
+  margin-left: auto;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.chart-csv-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.card h2.has-csv-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
