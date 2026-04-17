@@ -13,3 +13,4 @@ analysis/filer_cache.json
 
 # OS
 .DS_Store
+.gstack/

@@ -9,7 +9,7 @@ import time
 # Add project root to path so we can import as a package
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from analysis import national, geographic, cube, lenders
+from analysis import national, geographic, cube, lenders, quality
 
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "docs", "data")
 
@@ -41,6 +41,9 @@ def main():
 
     print("Running lender analysis...")
     write_json("lenders.json", lenders.generate(), compact=True)
+
+    print("Running loan-quality analysis...")
+    write_json("quality.json", quality.generate(), compact=True)
 
     elapsed = time.time() - t0
     print(f"\nAll analyses complete in {elapsed:.1f}s")

@@ -39,16 +39,42 @@ let filters = {
   action: null,
   loanType: null,
   loanPurpose: null,
+  dti: null,
+  ltv: null,
+  purchaser: null,
+  spread: null,
+  lien: null,
+  nonAm: null,
+};
+
+/* ---- Quality dimension config shared between renderers ---- */
+const QUALITY_DIMS = [
+  { key: "dti",       field: "d",  chart: "chart-dti",       label: "DTI",            orderKey: "dti" },
+  { key: "ltv",       field: "l",  chart: "chart-ltv",       label: "CLTV",           orderKey: "ltv" },
+  { key: "purchaser", field: "pu", chart: "chart-purchaser", label: "Purchaser",      labels: "purchaser" },
+  { key: "spread",    field: "rs", chart: "chart-spread",    label: "Rate Spread",    orderKey: "spread" },
+  { key: "lien",      field: "li", chart: "chart-lien",      label: "Lien",           labels: "lien" },
+  { key: "nonAm",     field: "nm", chart: "chart-nonam",     label: "Non-Am",         labels: "non_am", orderKey: "non_am" },
+];
+
+const QUALITY_CHIP_LABELS = {
+  dti: "DTI",
+  ltv: "CLTV",
+  purchaser: "Purchaser",
+  spread: "Spread",
+  lien: "Lien",
+  nonAm: "Features",
 };
 
 /* ---- Data loading ---- */
 async function loadData() {
-  const [cube, geographic, lenders] = await Promise.all([
+  const [cube, geographic, lenders, quality] = await Promise.all([
     fetch("data/cube.json").then(r => r.json()),
     fetch("data/geographic.json").then(r => r.json()),
     fetch("data/lenders.json").then(r => r.json()),
+    fetch("data/quality.json").then(r => r.json()),
   ]);
-  data = { cube, geographic, lenders };
+  data = { cube, geographic, lenders, quality };
 
   // Build lookup indexes for fast filtering
   data.lenderIndex = buildIndex(lenders.cube, "l");
@@ -131,6 +157,7 @@ function onFilterChange() {
   renderNational();
   renderLenders();
   renderGeographic();
+  renderQuality();
 }
 
 /* ---- Navigation ---- */
@@ -183,6 +210,7 @@ function renderAll() {
   renderNational();
   renderLenders();
   renderGeographic();
+  renderQuality();
 }
 
 function renderNational() {
@@ -343,6 +371,15 @@ function activeFilterDescription() {
   return parts.length ? parts.join(" + ") : "";
 }
 
+function qualityChipLabel(key) {
+  const val = filters[key];
+  if (val == null) return null;
+  if (key === "purchaser") return data.quality?.labels.purchaser[val] || val;
+  if (key === "lien") return data.quality?.labels.lien[val] || val;
+  if (key === "nonAm") return data.quality?.labels.non_am[val] || val;
+  return val; // DTI/LTV/spread buckets are human-readable already
+}
+
 function renderFilterChips(elId, hint) {
   const el = document.getElementById(elId);
   const chips = [];
@@ -350,6 +387,11 @@ function renderFilterChips(elId, hint) {
   if (filters.action != null) chips.push({key: "action", label: ACTION_LABELS[filters.action]});
   if (filters.loanType != null) chips.push({key: "loanType", label: LOAN_TYPE_LABELS[filters.loanType]});
   if (filters.loanPurpose != null) chips.push({key: "loanPurpose", label: LOAN_PURPOSE_LABELS[filters.loanPurpose]});
+  for (const k of ["dti", "ltv", "purchaser", "spread", "lien", "nonAm"]) {
+    if (filters[k] != null) {
+      chips.push({key: k, label: `${QUALITY_CHIP_LABELS[k]}: ${qualityChipLabel(k)}`});
+    }
+  }
 
   if (chips.length === 0) {
     el.innerHTML = `<span class="filter-hint">${hint}</span>`;
@@ -362,7 +404,10 @@ function renderFilterChips(elId, hint) {
     btn.addEventListener("click", () => { filters[btn.parentElement.dataset.key] = null; onFilterChange(); });
   });
   el.querySelector(".filter-clear").addEventListener("click", () => {
-    filters = { year: null, action: null, loanType: null, loanPurpose: null };
+    filters = {
+      year: null, action: null, loanType: null, loanPurpose: null,
+      dti: null, ltv: null, purchaser: null, spread: null, lien: null, nonAm: null,
+    };
     onFilterChange();
   });
 }
@@ -591,6 +636,133 @@ function renderGeographic() {
     </tr>
   `).join("");
   makeSortable(countyTable);
+}
+
+/* ---- Loan Quality tab ---- */
+function filterQuality(ignoreDim = null) {
+  // Applies every active filter except the one whose own donut we're rendering
+  // (so each donut shows the distribution across its dimension under all
+  // other active filters).
+  return data.quality.cube.filter(r => {
+    if (ignoreDim !== "year"       && filters.year       != null && r.y  !== filters.year) return false;
+    if (ignoreDim !== "action"     && filters.action     != null && r.a  !== filters.action) return false;
+    if (ignoreDim !== "loanType"   && filters.loanType   != null && r.t  !== filters.loanType) return false;
+    if (ignoreDim !== "loanPurpose"&& filters.loanPurpose!= null && r.p  !== filters.loanPurpose) return false;
+    if (ignoreDim !== "dti"        && filters.dti        != null && r.d  !== filters.dti) return false;
+    if (ignoreDim !== "ltv"        && filters.ltv        != null && r.l  !== filters.ltv) return false;
+    if (ignoreDim !== "purchaser"  && filters.purchaser  != null && r.pu !== filters.purchaser) return false;
+    if (ignoreDim !== "spread"     && filters.spread     != null && r.rs !== filters.spread) return false;
+    if (ignoreDim !== "lien"       && filters.lien       != null && r.li !== filters.lien) return false;
+    if (ignoreDim !== "nonAm"      && filters.nonAm      != null && r.nm !== filters.nonAm) return false;
+    return true;
+  });
+}
+
+function qualityLabelFor(dim, code) {
+  if (dim.labels) return data.quality.labels[dim.labels][code] || code;
+  return code;
+}
+
+function qualityOrderFor(dim, codes) {
+  if (!dim.orderKey) return [...codes].sort((a, b) => {
+    // Fall back to count-desc (handled by caller) — here return as-is.
+    return 0;
+  });
+  const order = data.quality.orders[dim.orderKey];
+  return [...codes].sort((a, b) => {
+    const ai = order.indexOf(a), bi = order.indexOf(b);
+    return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+  });
+}
+
+function renderQuality() {
+  if (!data.quality) return;
+
+  renderFilterChips("quality-filters",
+    "Click any segment to filter. Overview filters (year, action, type, purpose) apply here too.");
+
+  // --- Summary across fully-filtered rows ---
+  const fullyFiltered = filterQuality();
+  let count = 0, volume = 0, rateSum = 0, rateCount = 0;
+  for (const r of fullyFiltered) {
+    count += r.c;
+    volume += r.s;
+    rateSum += r.r;
+    rateCount += r.rc;
+  }
+  const avgRate = rateCount ? rateSum / rateCount : null;
+  const avgLoan = count ? volume / count : null;
+
+  document.getElementById("quality-summary").innerHTML = `
+    <div class="stat-card"><div class="label">Records in Slice</div><div class="value">${fmt.num(count)}</div></div>
+    <div class="stat-card"><div class="label">Volume</div><div class="value">${fmt.billions(volume / 1e9)}</div></div>
+    <div class="stat-card"><div class="label">Avg Loan</div><div class="value">${fmt.dollar(avgLoan)}</div></div>
+    <div class="stat-card"><div class="label">Avg Interest Rate</div><div class="value">${avgRate ? fmt.rate(avgRate) : "—"}</div></div>
+  `;
+
+  // --- Render one donut per quality dimension ---
+  const detailRows = [];
+  for (const dim of QUALITY_DIMS) {
+    const rows = filterQuality(dim.key);
+    const agg = {};
+    for (const r of rows) {
+      const k = r[dim.field];
+      agg[k] = (agg[k] || 0) + r.c;
+    }
+    let codes = Object.keys(agg).filter(k => agg[k] > 0);
+
+    // Order: known sort order if defined, else by count desc
+    if (dim.orderKey) {
+      codes = qualityOrderFor(dim, codes);
+    } else {
+      codes.sort((a, b) => agg[b] - agg[a]);
+    }
+
+    const labels = codes.map(c => qualityLabelFor(dim, c));
+    const values = codes.map(c => agg[c]);
+    renderFilterDonut(dim.chart, labels, values, codes, dim.label, dim.key, filters[dim.key]);
+
+    // Detail rows: use the fully-filtered rows so they reflect every active
+    // filter including the dim itself. Sum volume + rate per bucket.
+    const perBucket = {};
+    for (const r of fullyFiltered) {
+      const k = r[dim.field];
+      if (!perBucket[k]) perBucket[k] = { c: 0, s: 0, r: 0, rc: 0 };
+      perBucket[k].c += r.c;
+      perBucket[k].s += r.s;
+      perBucket[k].r += r.r;
+      perBucket[k].rc += r.rc;
+    }
+    const bucketCodes = Object.keys(perBucket).filter(k => perBucket[k].c > 0);
+    const sortedBuckets = dim.orderKey
+      ? qualityOrderFor(dim, bucketCodes)
+      : bucketCodes.sort((a, b) => perBucket[b].c - perBucket[a].c);
+    const totalInDim = bucketCodes.reduce((s, k) => s + perBucket[k].c, 0);
+    for (const k of sortedBuckets) {
+      const b = perBucket[k];
+      detailRows.push({
+        dim: dim.label,
+        bucket: qualityLabelFor(dim, k),
+        count: b.c,
+        pct: totalInDim ? b.c / totalInDim * 100 : 0,
+        volume: b.s,
+        avgRate: b.rc ? b.r / b.rc : null,
+      });
+    }
+  }
+
+  const detailTable = document.getElementById("table-quality-detail");
+  detailTable.querySelector("tbody").innerHTML = detailRows.map(r => `
+    <tr>
+      <td>${r.dim}</td>
+      <td>${r.bucket}</td>
+      <td class="num" data-sort="${r.count}">${fmt.num(r.count)}</td>
+      <td class="num" data-sort="${r.pct}">${fmt.pct(r.pct)}</td>
+      <td class="num" data-sort="${r.volume}">${fmt.billions(r.volume / 1e9)}</td>
+      <td class="num" data-sort="${r.avgRate ?? -1}">${r.avgRate != null ? fmt.rate(r.avgRate) : "—"}</td>
+    </tr>
+  `).join("");
+  makeSortable(detailTable);
 }
 
 /* ---- Chart helpers (Chart.js) ---- */

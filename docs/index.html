@@ -19,6 +19,7 @@
   <a href="#" data-section="sec-lenders">Lenders</a>
   <a href="#" data-section="sec-geographic">Geographic Analysis</a>
   <a href="#" data-section="sec-counties">Top Counties</a>
+  <a href="#" data-section="sec-quality">Loan Quality</a>
   <a href="#" data-section="sec-compare">Compare States</a>
 </nav>
 
@@ -209,6 +210,73 @@
             </tr>
           </thead>
           <tbody><tr><td colspan="9" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LOAN QUALITY ============ -->
+  <div id="sec-quality" class="section">
+
+    <div id="quality-filters" class="active-filters">
+      <span class="filter-hint">Click any segment to filter. Overview filters (year, action, type, purpose) apply here too.</span>
+    </div>
+
+    <div id="quality-summary" class="stats-grid">
+      <div class="stat-card"><div class="label">Loading loan-quality data...</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Debt-to-Income (DTI)</h2>
+        <p class="chart-click-hint">Click a segment to filter by DTI band</p>
+        <div class="chart-container"><canvas id="chart-dti"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Combined Loan-to-Value (CLTV)</h2>
+        <p class="chart-click-hint">Click a segment to filter by LTV band</p>
+        <div class="chart-container"><canvas id="chart-ltv"></canvas></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Purchaser (who holds the loan)</h2>
+        <p class="chart-click-hint">Click a segment to filter by purchaser</p>
+        <div class="chart-container tall"><canvas id="chart-purchaser"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Rate Spread over APOR</h2>
+        <p class="chart-click-hint">Higher spread = higher-priced loan. Click a band to filter.</p>
+        <div class="chart-container"><canvas id="chart-spread"></canvas></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Lien Status</h2>
+        <p class="chart-click-hint">Click a segment to filter</p>
+        <div class="chart-container"><canvas id="chart-lien"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Non-Amortizing Features</h2>
+        <p class="chart-click-hint">Balloon / IO / neg-am / other exotic features</p>
+        <div class="chart-container"><canvas id="chart-nonam"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Quality Mix Detail</h2>
+      <div style="overflow-x: auto;">
+        <table id="table-quality-detail">
+          <thead>
+            <tr>
+              <th>Dimension</th><th>Bucket</th>
+              <th class="num">Count</th><th class="num">% of Filtered</th>
+              <th class="num">Volume</th><th class="num">Avg Rate</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="6" class="loading">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>
