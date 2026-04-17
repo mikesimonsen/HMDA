@@ -144,6 +144,38 @@ function groupBy(rows, key) {
   return map;
 }
 
+/* Build year-stacked series: returns { years, entries } where each entry is
+ * { code, label, data: [count per year] }, sorted by total count desc. Used
+ * for all stacked-area charts that distribute a category over time.
+ */
+function buildYearSeries(rows, codeKey, countKey, yearKey, labelFn, orderedCodes = null) {
+  const yearsSet = new Set();
+  const totals = {};
+  const perYear = {};
+  for (const r of rows) {
+    const y = r[yearKey];
+    const code = r[codeKey];
+    yearsSet.add(y);
+    if (!perYear[code]) perYear[code] = {};
+    perYear[code][y] = (perYear[code][y] || 0) + r[countKey];
+    totals[code] = (totals[code] || 0) + r[countKey];
+  }
+  const years = [...yearsSet].sort();
+  let codes = Object.keys(perYear);
+  if (orderedCodes) {
+    const orderIdx = new Map(orderedCodes.map((c, i) => [c, i]));
+    codes.sort((a, b) => (orderIdx.get(a) ?? 999) - (orderIdx.get(b) ?? 999));
+  } else {
+    codes.sort((a, b) => totals[b] - totals[a]);
+  }
+  const entries = codes.map(code => ({
+    code,
+    label: labelFn ? labelFn(code) : code,
+    data: years.map(y => perYear[code][y] || 0),
+  }));
+  return { years, entries };
+}
+
 /* ---- Formatting helpers ---- */
 const fmt = {
   num: n => n == null ? "—" : Number(n).toLocaleString("en-US", {maximumFractionDigits: 0}),
@@ -232,22 +264,20 @@ function renderNational() {
       <div class="sub">originated loans</div></div>
   `;
 
-  // --- Action Taken donut (always aggregates across action, ignores action filter for its own chart) ---
-  const byAction = groupBy(filterMain({ action: null }), "action_taken");
-  const actionEntries = Object.entries(byAction)
+  // --- Action Taken stacked area (ignores year + action filters so it always spans full timeline) ---
+  const actionSeries = buildYearSeries(
+    filterMain({ year: null, action: null }),
+    "action_taken", "count", "y",
+    code => ACTION_LABELS[code] || code
+  );
+  renderFilterStackedArea("chart-action", actionSeries.years, actionSeries.entries,
+    "Application Outcomes", "action", filters.action);
+
+  // Action table (still aggregated under current filters, ignoring the action filter so user sees the full breakdown)
+  const byActionForTable = groupBy(filterMain({ action: null }), "action_taken");
+  const actionEntries = Object.entries(byActionForTable)
     .map(([code, rows]) => ({ code, ...aggregate(rows) }))
     .sort((a, b) => b.count - a.count);
-
-  renderFilterDonut("chart-action",
-    actionEntries.map(e => ACTION_LABELS[e.code] || e.code),
-    actionEntries.map(e => e.count),
-    actionEntries.map(e => e.code),
-    "Application Outcomes",
-    "action",
-    filters.action
-  );
-
-  // Action table
   const totalForPct = actionEntries.reduce((s, e) => s + e.count, 0);
   document.getElementById("table-action").querySelector("tbody").innerHTML = actionEntries.map(e => `
     <tr><td>${ACTION_LABELS[e.code] || e.code}</td>
@@ -257,35 +287,23 @@ function renderNational() {
   `).join("");
   makeSortable(document.getElementById("table-action"));
 
-  // --- Loan Type donut (ignores loanType filter for its own chart) ---
-  const byType = groupBy(filterMain({ loanType: null }), "loan_type");
-  const typeEntries = Object.entries(byType)
-    .map(([code, rows]) => ({ code, ...aggregate(rows) }))
-    .sort((a, b) => b.count - a.count);
-
-  renderFilterDonut("chart-loan-type",
-    typeEntries.map(e => LOAN_TYPE_LABELS[e.code] || e.code),
-    typeEntries.map(e => e.count),
-    typeEntries.map(e => e.code),
-    "Loan Type",
-    "loanType",
-    filters.loanType
+  // --- Loan Type stacked area ---
+  const typeSeries = buildYearSeries(
+    filterMain({ year: null, loanType: null }),
+    "loan_type", "count", "y",
+    code => LOAN_TYPE_LABELS[code] || code
   );
+  renderFilterStackedArea("chart-loan-type", typeSeries.years, typeSeries.entries,
+    "Loan Type", "loanType", filters.loanType);
 
-  // --- Loan Purpose donut (ignores loanPurpose filter for its own chart) ---
-  const byPurpose = groupBy(filterMain({ loanPurpose: null }), "loan_purpose");
-  const purposeEntries = Object.entries(byPurpose)
-    .map(([code, rows]) => ({ code, ...aggregate(rows) }))
-    .sort((a, b) => b.count - a.count);
-
-  renderFilterDonut("chart-loan-purpose",
-    purposeEntries.map(e => LOAN_PURPOSE_LABELS[e.code] || e.code),
-    purposeEntries.map(e => e.count),
-    purposeEntries.map(e => e.code),
-    "Loan Purpose",
-    "loanPurpose",
-    filters.loanPurpose
+  // --- Loan Purpose stacked area ---
+  const purposeSeries = buildYearSeries(
+    filterMain({ year: null, loanPurpose: null }),
+    "loan_purpose", "count", "y",
+    code => LOAN_PURPOSE_LABELS[code] || code
   );
+  renderFilterStackedArea("chart-loan-purpose", purposeSeries.years, purposeSeries.entries,
+    "Loan Purpose", "loanPurpose", filters.loanPurpose);
 
   // --- Rate distribution ---
   const rateRows = filterRates();
@@ -639,21 +657,22 @@ function renderGeographic() {
 }
 
 /* ---- Loan Quality tab ---- */
-function filterQuality(ignoreDim = null) {
-  // Applies every active filter except the one whose own donut we're rendering
-  // (so each donut shows the distribution across its dimension under all
-  // other active filters).
+function filterQuality(ignoreDims = []) {
+  // Applies every active filter except the ones in ignoreDims. The stacked-
+  // area charts pass both "year" and their own dim so the chart always spans
+  // all years and shows the full distribution under other active filters.
+  const ignore = new Set(Array.isArray(ignoreDims) ? ignoreDims : [ignoreDims]);
   return data.quality.cube.filter(r => {
-    if (ignoreDim !== "year"       && filters.year       != null && r.y  !== filters.year) return false;
-    if (ignoreDim !== "action"     && filters.action     != null && r.a  !== filters.action) return false;
-    if (ignoreDim !== "loanType"   && filters.loanType   != null && r.t  !== filters.loanType) return false;
-    if (ignoreDim !== "loanPurpose"&& filters.loanPurpose!= null && r.p  !== filters.loanPurpose) return false;
-    if (ignoreDim !== "dti"        && filters.dti        != null && r.d  !== filters.dti) return false;
-    if (ignoreDim !== "ltv"        && filters.ltv        != null && r.l  !== filters.ltv) return false;
-    if (ignoreDim !== "purchaser"  && filters.purchaser  != null && r.pu !== filters.purchaser) return false;
-    if (ignoreDim !== "spread"     && filters.spread     != null && r.rs !== filters.spread) return false;
-    if (ignoreDim !== "lien"       && filters.lien       != null && r.li !== filters.lien) return false;
-    if (ignoreDim !== "nonAm"      && filters.nonAm      != null && r.nm !== filters.nonAm) return false;
+    if (!ignore.has("year")       && filters.year       != null && r.y  !== filters.year) return false;
+    if (!ignore.has("action")     && filters.action     != null && r.a  !== filters.action) return false;
+    if (!ignore.has("loanType")   && filters.loanType   != null && r.t  !== filters.loanType) return false;
+    if (!ignore.has("loanPurpose")&& filters.loanPurpose!= null && r.p  !== filters.loanPurpose) return false;
+    if (!ignore.has("dti")        && filters.dti        != null && r.d  !== filters.dti) return false;
+    if (!ignore.has("ltv")        && filters.ltv        != null && r.l  !== filters.ltv) return false;
+    if (!ignore.has("purchaser")  && filters.purchaser  != null && r.pu !== filters.purchaser) return false;
+    if (!ignore.has("spread")     && filters.spread     != null && r.rs !== filters.spread) return false;
+    if (!ignore.has("lien")       && filters.lien       != null && r.li !== filters.lien) return false;
+    if (!ignore.has("nonAm")      && filters.nonAm      != null && r.nm !== filters.nonAm) return false;
     return true;
   });
 }
@@ -700,27 +719,25 @@ function renderQuality() {
     <div class="stat-card"><div class="label">Avg Interest Rate</div><div class="value">${avgRate ? fmt.rate(avgRate) : "—"}</div></div>
   `;
 
-  // --- Render one donut per quality dimension ---
+  // --- Render one stacked-area chart per quality dimension ---
+  // Each chart ignores the year filter and its own dim filter so it always
+  // spans all years and shows the full category breakdown.
   const detailRows = [];
   for (const dim of QUALITY_DIMS) {
-    const rows = filterQuality(dim.key);
-    const agg = {};
-    for (const r of rows) {
-      const k = r[dim.field];
-      agg[k] = (agg[k] || 0) + r.c;
-    }
-    let codes = Object.keys(agg).filter(k => agg[k] > 0);
+    const rows = filterQuality(["year", dim.key]);
 
-    // Order: known sort order if defined, else by count desc
+    // Determine code ordering — use known orders where defined, else count desc
+    let orderedCodes = null;
     if (dim.orderKey) {
-      codes = qualityOrderFor(dim, codes);
-    } else {
-      codes.sort((a, b) => agg[b] - agg[a]);
+      orderedCodes = data.quality.orders[dim.orderKey];
     }
-
-    const labels = codes.map(c => qualityLabelFor(dim, c));
-    const values = codes.map(c => agg[c]);
-    renderFilterDonut(dim.chart, labels, values, codes, dim.label, dim.key, filters[dim.key]);
+    const series = buildYearSeries(
+      rows, dim.field, "c", "y",
+      code => qualityLabelFor(dim, code),
+      orderedCodes
+    );
+    renderFilterStackedArea(dim.chart, series.years, series.entries,
+      dim.label, dim.key, filters[dim.key]);
 
     // Detail rows: use the fully-filtered rows so they reflect every active
     // filter including the dim itself. Sum volume + rate per bucket.
@@ -779,61 +796,52 @@ function destroyChart(id) {
   if (charts[id]) { charts[id].destroy(); delete charts[id]; }
 }
 
-function renderFilterDonut(canvasId, labels, values, codes, title, filterKey, activeCode) {
+function renderFilterStackedArea(canvasId, years, seriesEntries, title, filterKey, activeCode) {
   destroyChart(canvasId);
   const ctx = document.getElementById(canvasId).getContext("2d");
 
-  // Highlight active segment, mute others
-  const bgColors = labels.map((_, i) => {
-    if (activeCode == null) return COLORS[i % COLORS.length];
-    return codes[i] === activeCode ? COLORS[i % COLORS.length] : COLORS_MUTED[i % COLORS_MUTED.length];
-  });
-
-  const borderColors = labels.map((_, i) => {
-    if (activeCode != null && codes[i] === activeCode) return "#1e40af";
-    return "#fff";
-  });
-
-  const borderWidths = labels.map((_, i) => {
-    if (activeCode != null && codes[i] === activeCode) return 3;
-    return 1;
+  const datasets = seriesEntries.map((s, i) => {
+    const baseColor = COLORS[i % COLORS.length];
+    const mutedColor = COLORS_MUTED[i % COLORS_MUTED.length];
+    const isActive = activeCode != null && s.code === activeCode;
+    const color = (activeCode == null || isActive) ? baseColor : mutedColor;
+    return {
+      label: s.label,
+      data: s.data,
+      backgroundColor: color + "cc",
+      borderColor: color,
+      borderWidth: isActive ? 2.5 : 1,
+      fill: true,
+      tension: 0.25,
+      pointRadius: isActive ? 3 : 0,
+      pointHoverRadius: 5,
+      _code: s.code,
+    };
   });
 
   charts[canvasId] = new Chart(ctx, {
-    type: "doughnut",
-    data: {
-      labels,
-      datasets: [{
-        data: values,
-        backgroundColor: bgColors,
-        borderColor: borderColors,
-        borderWidth: borderWidths,
-      }]
-    },
+    type: "line",
+    data: { labels: years, datasets },
     options: {
       responsive: true, maintainAspectRatio: false,
+      interaction: { mode: "nearest", intersect: false },
       plugins: {
-        legend: { position: "right", labels: { boxWidth: 12, padding: 12, font: { size: 12 } } },
+        legend: { position: "right", labels: { boxWidth: 12, padding: 8, font: { size: 11 } } },
         title: { display: true, text: title + (activeCode != null ? " (filtered)" : ""), font: { size: 14, weight: "600" } },
         tooltip: {
           callbacks: {
-            label: ctx => {
-              const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
-              return ` ${ctx.label}: ${fmt.num(ctx.raw)} (${(ctx.raw / total * 100).toFixed(1)}%)`;
-            }
+            label: ctx => ` ${ctx.dataset.label}: ${fmt.num(ctx.raw)}`,
           }
         }
       },
+      scales: {
+        x: { stacked: true },
+        y: { stacked: true, ticks: { callback: v => fmt.num(v) } }
+      },
       onClick: (evt, elements) => {
         if (!elements.length) return;
-        const idx = elements[0].index;
-        const clickedCode = codes[idx];
-        // Toggle: click same segment again to clear
-        if (filters[filterKey] === clickedCode) {
-          filters[filterKey] = null;
-        } else {
-          filters[filterKey] = clickedCode;
-        }
+        const clickedCode = datasets[elements[0].datasetIndex]._code;
+        filters[filterKey] = filters[filterKey] === clickedCode ? null : clickedCode;
         onFilterChange();
       },
       onHover: (evt, elements) => {
