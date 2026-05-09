@@ -20,6 +20,7 @@
   <a href="#" data-section="sec-geographic">Geographic Analysis</a>
   <a href="#" data-section="sec-counties">Top Counties</a>
   <a href="#" data-section="sec-quality">Loan Quality</a>
+  <a href="#" data-section="sec-investor">Investors</a>
   <a href="#" data-section="sec-compare">Compare States</a>
 </nav>
 
@@ -277,6 +278,98 @@
             </tr>
           </thead>
           <tbody><tr><td colspan="6" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ INVESTORS ============ -->
+  <div id="sec-investor" class="section">
+
+    <div class="card">
+      <h2>Investor Activity</h2>
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin:0 0 0.5rem;">
+        HMDA does not have a dedicated "investor" or "spec builder" loan type. The cleanest
+        proxy is loans where <strong>occupancy = investment property</strong> AND
+        <strong>business/commercial purpose = yes</strong>. That's the segment used below.
+        Pure spec-construction loans are commercial loans, generally exempt from HMDA reporting —
+        only construction-to-permanent loans on 1–4 unit dwellings show up.
+      </p>
+      <div class="investor-controls">
+        <label>Investor lens:</label>
+        <select id="investor-lens">
+          <option value="bp">Business-purpose investment (occ=3 + biz=1)</option>
+          <option value="all3">All investment-occupancy loans (occ=3)</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="investor-summary" class="stats-grid">
+      <div class="stat-card"><div class="label">Loading investor data...</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Investor Originations by Year</h2>
+        <p class="chart-click-hint">Counts and dollar volume of investor originations</p>
+        <div class="chart-container"><canvas id="chart-investor-vol"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Investor Share of All Originations</h2>
+        <p class="chart-click-hint">% of all originated loans that are investor</p>
+        <div class="chart-container"><canvas id="chart-investor-share"></canvas></div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <h2>Investor Loans by Purpose</h2>
+        <p class="chart-click-hint">Purchase vs refi vs cash-out vs other</p>
+        <div class="chart-container"><canvas id="chart-investor-purpose"></canvas></div>
+      </div>
+      <div class="card">
+        <h2>Occupancy Mix Over Time</h2>
+        <p class="chart-click-hint">Investor vs primary vs second-home (all originations)</p>
+        <div class="chart-container"><canvas id="chart-investor-occ"></canvas></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="investor-state-title">Top States by Investor Originations</h2>
+      <div style="overflow-x: auto;">
+        <table id="table-investor-states">
+          <thead>
+            <tr>
+              <th>State</th>
+              <th class="num">Investor Originations</th>
+              <th class="num">All Originations</th>
+              <th class="num">Investor Share</th>
+              <th class="num">Investor Volume</th>
+              <th class="num">Avg Investor Loan</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="6" class="loading">Loading...</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 id="investor-county-title">Top Counties by Investor Share</h2>
+      <p style="color:var(--text-secondary); font-size:0.85rem; margin:0 0 0.75rem;">
+        Of the top ~200 counties by overall volume. Min 1,000 originations to qualify.
+      </p>
+      <div style="overflow-x: auto;">
+        <table id="table-investor-counties">
+          <thead>
+            <tr>
+              <th>FIPS</th><th>County</th><th>State</th>
+              <th class="num">Investor Originations</th>
+              <th class="num">All Originations</th>
+              <th class="num">Investor Share</th>
+              <th class="num">Investor Volume</th>
+            </tr>
+          </thead>
+          <tbody><tr><td colspan="7" class="loading">Loading...</td></tr></tbody>
         </table>
       </div>
     </div>

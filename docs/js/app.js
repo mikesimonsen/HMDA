@@ -68,18 +68,21 @@ const QUALITY_CHIP_LABELS = {
 
 /* ---- Data loading ---- */
 async function loadData() {
-  const [cube, geographic, lenders, quality] = await Promise.all([
+  const [cube, geographic, lenders, quality, investor] = await Promise.all([
     fetch("data/cube.json").then(r => r.json()),
     fetch("data/geographic.json").then(r => r.json()),
     fetch("data/lenders.json").then(r => r.json()),
     fetch("data/quality.json").then(r => r.json()),
+    fetch("data/investor.json").then(r => r.json()),
   ]);
-  data = { cube, geographic, lenders, quality };
+  data = { cube, geographic, lenders, quality, investor };
 
   // Build lookup indexes for fast filtering
   data.lenderIndex = buildIndex(lenders.cube, "l");
   data.stateIndex = buildIndex(geographic.state_cube, "state");
   data.countyIndex = buildIndex(geographic.county_cube, "fips");
+  data.investorStateIndex = buildIndex(investor.state_cube, "state");
+  data.investorCountyIndex = buildIndex(investor.county_cube, "fips");
 
   renderAll();
 }
@@ -190,6 +193,7 @@ function onFilterChange() {
   renderLenders();
   renderGeographic();
   renderQuality();
+  renderInvestor();
 }
 
 /* ---- Navigation ---- */
@@ -243,6 +247,7 @@ function renderAll() {
   renderLenders();
   renderGeographic();
   renderQuality();
+  renderInvestor();
 }
 
 function renderNational() {
@@ -780,6 +785,257 @@ function renderQuality() {
     </tr>
   `).join("");
   makeSortable(detailTable);
+}
+
+/* ---- Investors tab ---- */
+let investorLens = "bp"; // "bp" = occ=3 + biz=1, "all3" = any occ=3
+
+function isInvestorRow(r) {
+  return investorLens === "bp"
+    ? (r.occ === "3" && r.bp === "1")
+    : (r.occ === "3");
+}
+
+function renderInvestor() {
+  if (!data.investor) return;
+
+  const labels = data.investor.labels;
+  const lensName = investorLens === "bp"
+    ? "Business-purpose investment"
+    : "All investment-occupancy";
+
+  // Apply Overview filters (year + loan_purpose) to investor cubes. Action,
+  // loan_type filters don't apply: cubes are originations only and don't
+  // carry loan_type.
+  const passesOverview = r =>
+    (filters.year == null || r.y === filters.year) &&
+    (filters.loanPurpose == null || r.p === filters.loanPurpose);
+
+  const natRows = data.investor.national_cube.filter(passesOverview);
+
+  // Aggregate per-year totals: investor count/volume + all-orig count
+  const byYear = {};
+  for (const r of natRows) {
+    if (!byYear[r.y]) {
+      byYear[r.y] = { invC: 0, invS: 0, invR: 0, invRC: 0, allC: 0, allS: 0, byOcc: {}, byPurpose: {} };
+    }
+    const y = byYear[r.y];
+    y.allC += r.c;
+    y.allS += r.s;
+    y.byOcc[r.occ] = (y.byOcc[r.occ] || 0) + r.c;
+    if (isInvestorRow(r)) {
+      y.invC += r.c;
+      y.invS += r.s;
+      y.invR += r.r;
+      y.invRC += r.rc;
+      y.byPurpose[r.p] = (y.byPurpose[r.p] || 0) + r.c;
+    }
+  }
+  const years = Object.keys(byYear).sort();
+
+  // --- Summary cards ---
+  let totalInv = 0, totalAll = 0, totalInvVol = 0, totalRateSum = 0, totalRateCount = 0;
+  let peakYear = null, peakCount = 0;
+  for (const y of years) {
+    const v = byYear[y];
+    totalInv += v.invC;
+    totalAll += v.allC;
+    totalInvVol += v.invS;
+    totalRateSum += v.invR;
+    totalRateCount += v.invRC;
+    if (v.invC > peakCount) { peakCount = v.invC; peakYear = y; }
+  }
+  const sharePct = totalAll ? totalInv / totalAll * 100 : 0;
+  const avgInvLoan = totalInv ? totalInvVol / totalInv : null;
+  const avgInvRate = totalRateCount ? totalRateSum / totalRateCount : null;
+  // Switch to trillions once volume passes $1T to keep the card readable.
+  const volStr = totalInvVol >= 1e12
+    ? "$" + (totalInvVol / 1e12).toFixed(2) + "T"
+    : fmt.billions(totalInvVol / 1e9);
+
+  document.getElementById("investor-summary").innerHTML = `
+    <div class="stat-card"><div class="label">Investor Originations</div><div class="value">${fmt.num(totalInv)}</div>
+      <div class="sub">${lensName}</div></div>
+    <div class="stat-card"><div class="label">Share of All Originations</div><div class="value">${fmt.pct(sharePct)}</div></div>
+    <div class="stat-card"><div class="label">Total Investor Volume</div><div class="value">${volStr}</div></div>
+    <div class="stat-card"><div class="label">Avg Investor Loan</div><div class="value">${fmt.dollar(avgInvLoan)}</div></div>
+    <div class="stat-card"><div class="label">Avg Rate</div><div class="value">${avgInvRate ? fmt.rate(avgInvRate) : "—"}</div></div>
+    <div class="stat-card"><div class="label">Peak Year</div><div class="value">${peakYear || "—"}</div>
+      <div class="sub">${peakYear ? fmt.num(peakCount) + " loans" : ""}</div></div>
+  `;
+
+  // --- Investor volume + dollar by year (dual-axis line) ---
+  destroyChart("chart-investor-vol");
+  {
+    const ctx = document.getElementById("chart-investor-vol").getContext("2d");
+    charts["chart-investor-vol"] = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: "Investor Originations (count)",
+            data: years.map(y => byYear[y].invC),
+            borderColor: COLORS[0],
+            backgroundColor: COLORS[0] + "22",
+            yAxisID: "y", tension: 0.2, pointRadius: 4, borderWidth: 2.5, fill: false,
+          },
+          {
+            label: "Investor Volume ($B)",
+            data: years.map(y => byYear[y].invS / 1e9),
+            borderColor: COLORS[2],
+            backgroundColor: COLORS[2] + "22",
+            yAxisID: "y1", tension: 0.2, pointRadius: 4, borderWidth: 2.5, fill: false,
+          },
+        ],
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          title: { display: true, text: "Investor Originations by Year (" + lensName + ")", font: { size: 14, weight: "600" } },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.label.includes("$")
+                ? ` ${ctx.dataset.label}: $${ctx.raw.toFixed(1)}B`
+                : ` ${ctx.dataset.label}: ${fmt.num(ctx.raw)}`,
+            }
+          }
+        },
+        scales: {
+          y:  { type: "linear", position: "left",  ticks: { callback: v => fmt.num(v) } },
+          y1: { type: "linear", position: "right", grid: { drawOnChartArea: false }, ticks: { callback: v => "$" + v + "B" } },
+        }
+      }
+    });
+  }
+
+  // --- Investor share of all originations ---
+  renderTimeSeries("chart-investor-share",
+    years,
+    [{
+      label: "Investor share (%)",
+      data: years.map(y => byYear[y].allC ? byYear[y].invC / byYear[y].allC * 100 : null),
+      color: COLORS[3],
+    }],
+    "Investor Share of All Originations"
+  );
+
+  // --- Investor loans by purpose (stacked area) ---
+  const purposeOrder = ["1", "31", "32", "2", "4", "5"];
+  const purposeRows = natRows.filter(isInvestorRow);
+  const purposeSeries = buildYearSeries(
+    purposeRows, "p", "c", "y",
+    code => labels.loan_purpose[code] || code,
+    purposeOrder
+  );
+  renderFilterStackedArea("chart-investor-purpose",
+    purposeSeries.years, purposeSeries.entries,
+    "Investor Loans by Purpose",
+    "loanPurpose", filters.loanPurpose);
+
+  // --- Occupancy mix (all originations, ignores investor lens) ---
+  const occOrder = ["1", "2", "3"];
+  const occSeries = buildYearSeries(
+    natRows, "occ", "c", "y",
+    code => labels.occupancy[code] || code,
+    occOrder
+  );
+  renderFilterStackedArea("chart-investor-occ",
+    occSeries.years, occSeries.entries,
+    "Occupancy Mix Over Time",
+    "_investorOcc", null); // dummy filterKey, click won't filter
+  // Disable click handler we just installed (the helper wires onClick that
+  // mutates filters[filterKey]). Replace with a no-op chart instead:
+  const occChart = charts["chart-investor-occ"];
+  if (occChart) {
+    occChart.options.onClick = null;
+    occChart.options.onHover = (evt) => { evt.native.target.style.cursor = "default"; };
+    occChart.update("none");
+  }
+
+  // --- Top States table ---
+  const filterDesc = activeFilterDescription();
+  document.getElementById("investor-state-title").textContent = filterDesc
+    ? `Top States by Investor Originations — ${filterDesc}`
+    : "Top States by Investor Originations";
+
+  const stateStats = [];
+  for (const [state, rows] of Object.entries(data.investorStateIndex)) {
+    let invC = 0, invS = 0, allC = 0;
+    for (const r of rows) {
+      if (!passesOverview(r)) continue;
+      allC += r.c;
+      if (isInvestorRow(r)) { invC += r.c; invS += r.s; }
+    }
+    if (allC === 0) continue;
+    stateStats.push({
+      state, invC, invS, allC,
+      share: allC ? invC / allC * 100 : 0,
+      avgLoan: invC ? invS / invC : null,
+    });
+  }
+  stateStats.sort((a, b) => b.invC - a.invC);
+  document.getElementById("table-investor-states").querySelector("tbody").innerHTML =
+    stateStats.slice(0, 50).map(s => `
+      <tr>
+        <td><strong>${s.state}</strong> <span style="color:var(--text-secondary);font-size:0.8rem">${STATE_NAMES[s.state] || ""}</span></td>
+        <td class="num" data-sort="${s.invC}">${fmt.num(s.invC)}</td>
+        <td class="num" data-sort="${s.allC}">${fmt.num(s.allC)}</td>
+        <td class="num" data-sort="${s.share}">${fmt.pct(s.share)}</td>
+        <td class="num" data-sort="${s.invS}">${fmt.billions(s.invS / 1e9)}</td>
+        <td class="num" data-sort="${s.avgLoan ?? -1}">${fmt.dollar(s.avgLoan)}</td>
+      </tr>
+    `).join("");
+  makeSortable(document.getElementById("table-investor-states"));
+
+  // --- Top Counties table (by investor share, min 1000 originations) ---
+  const countyNames = data.geographic.county_names;
+  document.getElementById("investor-county-title").textContent = filterDesc
+    ? `Top Counties by Investor Share — ${filterDesc}`
+    : "Top Counties by Investor Share";
+
+  const countyStats = [];
+  for (const [fips, rows] of Object.entries(data.investorCountyIndex)) {
+    let invC = 0, invS = 0, allC = 0;
+    for (const r of rows) {
+      if (!passesOverview(r)) continue;
+      allC += r.c;
+      if (isInvestorRow(r)) { invC += r.c; invS += r.s; }
+    }
+    if (allC < 1000) continue;
+    countyStats.push({
+      fips,
+      state: rows[0].state,
+      name: countyNames[fips] || "Unknown",
+      invC, invS, allC,
+      share: allC ? invC / allC * 100 : 0,
+    });
+  }
+  countyStats.sort((a, b) => b.share - a.share);
+  document.getElementById("table-investor-counties").querySelector("tbody").innerHTML =
+    countyStats.slice(0, 60).map(c => `
+      <tr>
+        <td>${c.fips}</td>
+        <td>${c.name}</td>
+        <td>${c.state}</td>
+        <td class="num" data-sort="${c.invC}">${fmt.num(c.invC)}</td>
+        <td class="num" data-sort="${c.allC}">${fmt.num(c.allC)}</td>
+        <td class="num" data-sort="${c.share}">${fmt.pct(c.share)}</td>
+        <td class="num" data-sort="${c.invS}">${fmt.billions(c.invS / 1e9)}</td>
+      </tr>
+    `).join("");
+  makeSortable(document.getElementById("table-investor-counties"));
+}
+
+function initInvestorControls() {
+  const sel = document.getElementById("investor-lens");
+  if (!sel) return;
+  sel.value = investorLens;
+  sel.addEventListener("change", e => {
+    investorLens = e.target.value;
+    renderInvestor();
+  });
 }
 
 /* ---- Chart helpers (Chart.js) ---- */
@@ -1332,6 +1588,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNav();
   loadData().then(() => {
     initCompare();
+    initInvestorControls();
     attachCsvButtons();
   });
 });
